@@ -1,0 +1,76 @@
+.productInner {
+  display: flex;
+  .imgBox {
+    width: 50%;
+    max-width: 600px;
+    .pdtImgList {
+      margin-top: 0.5rem;
+    }
+  }
+  .infoBox {
+    width: 50%;
+    padding: 2rem;
+    .price {
+      font-size: 1.5rem;
+    }
+    .note {
+      color: $red;
+      text-align: right;
+      display: block;
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .toggleTitle {
+    font-size: 1.25rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid $black;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+  }
+  .toggleText {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+  }
+  .buyBtn {
+    padding: 0.5rem 2rem;
+  }
+}
+.susume {
+  margin-top: 3rem;
+  .susumeList {
+    margin-top: 2rem;
+    a {
+      text-decoration: none;
+    }
+    .price {
+      font-size: 1.25rem;
+      margin: 0 auto 0 0;
+    }
+  }
+}
+.btnGroup {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  .btnBox:not(:last-child) {
+    margin-right: 1rem;
+  }
+}
+.numInput {
+  width: 80px;
+  border: 1px solid $red;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+}
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}

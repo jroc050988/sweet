@@ -1,0 +1,229 @@
+.cartPage {
+  .container {
+    display: flex;
+    align-items: self-start;
+  }
+}
+.cartListTitle {
+  width: 100%;
+  text-align: center;
+  background: $red;
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  p {
+    margin: 0;
+    padding: 0.5rem;
+    color: $white;
+    &:not(:last-child) {
+      border-right: 1px solid #fff;
+    }
+  }
+}
+.cartItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $black;
+  &:last-child {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+  .pdtPrice,
+  .btnBox,
+  .pdtTotal {
+    width: 14%;
+  }
+  .pdtDelete {
+    width: 8%;
+  }
+  .btnBox {
+    justify-content: center;
+    button {
+      width: 35px;
+    }
+    input {
+      width: calc(100% - 70px);
+    }
+  }
+  .imgBox {
+    width: 20%;
+    margin-bottom: 0;
+  }
+  .pdtName {
+    width: 30%;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
+.cartListBox {
+  width: calc(100% - 400px);
+}
+.cartList {
+  background: rgba(255, 255, 255, 0.5);
+}
+.cartTotalBox {
+  position: sticky;
+  margin-left: 1rem;
+  top: 211px;
+  width: 400px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  .couponInput {
+    width: calc(100% - 60px);
+    border: 1px solid $red;
+    padding: 0 0.5rem;
+  }
+  .couponBtn {
+    width: 60px;
+  }
+  .cartTotalItem {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      min-width: 100px;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .nextStep {
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+    margin-bottom: 0;
+    .btn {
+      padding: 0.5rem 2rem;
+    }
+  }
+  .note-ok {
+    color: $green;
+  }
+}
+
+//check
+.cartCheckPage {
+  .cartItem {
+    justify-content: space-between;
+    text-align: left;
+    border-color: #eee;
+    &:last-child {
+      border-bottom: 1px solid $black;
+    }
+    .pdtName {
+      width: 100px;
+    }
+    .pdtNum,
+    .pdtTotal {
+      width: auto;
+    }
+  }
+}
+.infoFrom {
+  .tag {
+    background: $red;
+    color: $white;
+    padding: 0 0.5rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
+  input,
+  textarea {
+    border-radius: 0;
+  }
+}
+.cartOkPage {
+  .checkIcon {
+    width: 60px;
+    height: 60px;
+    color: $red;
+    margin-bottom: 1rem;
+  }
+  .btnBox {
+    justify-content: center;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+.cartFinBox {
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 500px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+}
+.orderSearch {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  .orderInput {
+    width: calc(100% - 80px);
+    padding: 0 0.5rem;
+    border: 1px solid $red;
+  }
+  .orderBtn {
+    width: 80px;
+  }
+}
+.orderInfo {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  .orderInfoList {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    background: #fdf2e3;
+    padding: 0.25rem 0.5rem;
+  }
+  input,
+  textarea {
+    border-radius: 0;
+  }
+  .cartTotalBox {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 2rem;
+    position: relative;
+    top: 0;
+    .cartItem .pdtTotal {
+      width: auto;
+    }
+    .cartItem {
+      justify-content: space-between;
+      text-align: left;
+      border-color: #eee;
+      &:last-child {
+        border-bottom: 1px solid $black;
+      }
+    }
+  }
+}
+
+.contactPage {
+  .infoFrom {
+    max-width: 900px;
+    margin: 2rem auto 0;
+  }
+}
+
+.favoriteList {
+  background: rgba(255, 255, 255, 0.5);
+  .cartItem {
+    .pdtName {
+      width: 40%;
+    }
+    .pdtPrice {
+      width: 20%;
+    }
+    .pdtCart,
+    .pdtDelete {
+      width: 10%;
+    }
+  }
+}

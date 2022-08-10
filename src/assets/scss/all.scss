@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&family=Varela+Round&display=swap');
+
+@import "~bootstrap/scss/functions";
+@import "./helper/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/bootstrap";
+
+@import "./helper/mixins";
+@import "./helper/header";
+@import "./helper/footer";
+@import "./helper/index";
+@import "./helper/menu";
+@import "./helper/product";
+@import "./helper/cart";
