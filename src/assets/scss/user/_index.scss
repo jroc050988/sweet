@@ -10,7 +10,7 @@
 //style of index-banner
 .ix-banner {
   height: 100vh;
-  background: url(/sweet/dist/assets/img/banner05.jpg);
+  background: url(/sweet/dist/img/banner05.jpg);
   position: relative;
   &::before {
     content: '';
@@ -151,7 +151,7 @@
       position: absolute;
       width: 500px;
       height: 500px;
-      background: url(/sweet/dist/assets/img/circleText.png) center/cover;
+      background: url(/sweet/dist/img/circleText.png) center/cover;
       top: 0;
       left: 0;
       z-index: -1;
@@ -181,7 +181,7 @@
       position: absolute;
       width: 90px;
       height: 90px;
-      background: url(/sweet/dist/assets/img/icon01.png) center/cover;
+      background: url(/sweet/dist/img/icon01.png) center/cover;
       top: 0;
       right: 0;
       transform: translate(35px, -35px) rotate(353deg);
@@ -193,7 +193,7 @@
       position: absolute;
       width: 90px;
       height: 75px;
-      background: url(/sweet/dist/assets/img/icon02.png) center/cover;
+      background: url(/sweet/dist/img/icon02.png) center/cover;
       bottom: 0;
       left: 0;
       transform: translate(-30px, 28px);
