@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-      bannerImg: '/img/banner05.6586f0d8.jpg',
+      bannerImg: '/sweet/dist/img/banner05.6586f0d8.jpg',
     };
   },
 };
