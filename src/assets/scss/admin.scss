@@ -6,10 +6,4 @@
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/bootstrap";
 
-@import "./user/mixins";
-@import "./user/header";
-@import "./user/footer";
-@import "./user/index";
-@import "./user/menu";
-@import "./user/product";
-@import "./user/cart";
+@import "./admin/index";

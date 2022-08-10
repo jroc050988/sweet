@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="Page navigation example" class="pagination">
+  <nav aria-label="Page navigation" class="pagination justify-content-center">
     <ul class="pagination justify-content-center">
       <!-- <li class="page-item disabled">
       <a class="page-link">Previous</a>

@@ -41,22 +41,6 @@
                 <span class="nav-text nav-textEn">Home</span>
               </router-link>
             </li>
-            <!-- <li class="nav-item">
-              <router-link
-                class="nav-link"
-                :class="{ active: CurrentPage == 'about' }"
-                to="/about"
-                @click="CurrentPage = 'about'"
-              >
-                <span class="nav-icon">
-                  <font-awesome-icon icon="fa-solid fa-ice-cream" />
-                </span>
-                <span class="nav-text" v-show="CurrentPage !== 'about'">
-                  關於我們
-                </span>
-                <span class="nav-text nav-textEn">About</span>
-              </router-link>
-            </li> -->
             <li class="nav-item">
               <router-link
                 class="nav-link"
@@ -139,7 +123,7 @@
                 <span class="nav-text" v-show="CurrentPage !== 'contact'">
                   聯絡我們
                 </span>
-                <span class="nav-text nav-textEn">Contant</span>
+                <span class="nav-text nav-textEn">Contact</span>
               </router-link>
             </li>
             <div class="circle" :class="CurrentPage"></div>
