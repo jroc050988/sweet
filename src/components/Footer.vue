@@ -1,7 +1,7 @@
 <template>
   <!--Waves end-->
   <!--Header ends-->
-  <footer class="footer">
+  <footer class="footer user">
     <div class="footerWave">
       <svg
         class="waves"

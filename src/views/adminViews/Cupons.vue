@@ -9,6 +9,15 @@
           </button>
         </div>
       </div>
+      <div class="btnBox">
+        <button
+          type="button"
+          class="btn btn-primary mr-2 border-start-0"
+          @click="openCuponsModal()"
+        >
+          新增優惠券
+        </button>
+      </div>
       <div class="pdtList">
         <table class="mt-4">
           <thead>

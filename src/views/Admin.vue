@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="admin">
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container">
         <h1>
@@ -44,7 +44,7 @@
                   <font-awesome-icon icon="fa-solid fa-clipboard-list" />
                 </span>
                 <span class="nav-text">
-                  產品列表
+                  甜品列表
                 </span>
               </router-link>
             </li>
@@ -84,7 +84,7 @@
     </nav>
   </header>
   <router-view />
-  <footer>
+  <footer class="admin">
     <small class="copyright">
       Copyright © 2022 有點甜 All Rights Reserved. ※僅供學習使用 無任何商業用途
     </small>
@@ -96,7 +96,3 @@ export default {
   components: {},
 };
 </script>
-
-<style lang="scss">
-@import '../assets/scss/admin';
-</style>

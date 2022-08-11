@@ -5,7 +5,7 @@
       <div class="modal-content border-0">
         <div class="modal-header">
           <p class="modalTitle">
-            <span></span>
+            <span>新增/編輯優惠券</span>
           </p>
           <button
             type="button"

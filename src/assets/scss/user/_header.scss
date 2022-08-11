@@ -1,4 +1,4 @@
-header{
+header.user{
   position: fixed;
   top: 0;
   width: 100%;
@@ -13,7 +13,7 @@ header{
     left: 0;
   }
 }
-.navbar{
+.navbar.user{
   margin-top: 1.5rem;
   .navbar-collapse{
     justify-content: flex-end;
@@ -44,7 +44,7 @@ header{
     }
   }
 }
-.nav-link{
+.nav-link.user{
   display: flex;
   flex-direction: column;
   align-items: center;

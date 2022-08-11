@@ -6,11 +6,18 @@ const routes = [
     component: () => import('../views/NotFound.vue'),
   },
   {
+    path: '/admin/:pathMatch(.*)*',
+    redirect: {
+      name: 'login',
+    },
+  },
+  {
     path: '/admin',
     component: () => import('../views/Admin.vue'),
     children: [
       {
         path: '/admin/login',
+        name: 'login',
         component: () => import('../views/adminViews/Login.vue'),
       },
       {
@@ -38,40 +45,40 @@ const routes = [
       {
         path: '/',
         name: 'Home',
-        component: () => import('../views/Home.vue'),
+        component: () => import('../views/userViews/Home.vue'),
       },
       {
         path: '/menu',
         name: 'menu',
-        component: () => import('../views/Menu.vue'),
+        component: () => import('../views/userViews/Menu.vue'),
       },
       {
         path: '/product',
-        component: () => import('../views/Procduct.vue'),
+        component: () => import('../views/userViews/Procduct.vue'),
       },
       {
         path: '/favorite',
-        component: () => import('../views/Favorite.vue'),
+        component: () => import('../views/userViews/Favorite.vue'),
       },
       {
         path: '/cart',
-        component: () => import('../views/Cart.vue'),
+        component: () => import('../views/userViews/Cart.vue'),
       },
       {
         path: '/cart-check',
-        component: () => import('../views/Cart-check.vue'),
+        component: () => import('../views/userViews/Cart-check.vue'),
       },
       {
         path: '/cart-ok',
-        component: () => import('../views/Cart-ok.vue'),
+        component: () => import('../views/userViews/Cart-ok.vue'),
       },
       {
         path: '/order',
-        component: () => import('../views/Order.vue'),
+        component: () => import('../views/userViews/Order.vue'),
       },
       {
         path: '/contact',
-        component: () => import('../views/Contact.vue'),
+        component: () => import('../views/userViews/Contact.vue'),
       },
     ],
   },

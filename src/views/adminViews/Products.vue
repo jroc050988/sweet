@@ -9,6 +9,11 @@
           </button>
         </div>
       </div>
+      <div class="btnBox">
+        <button type="button" class="btn btn-primary mr-2 border-start-0" @click="openModal()">
+          新增甜品
+        </button>
+      </div>
       <div class="pdtList">
         <table class="mt-4">
           <thead>

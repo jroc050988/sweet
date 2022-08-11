@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <nav class="navbar navbar-expand-lg">
+  <header class="user">
+    <nav class="navbar user navbar-expand-lg">
       <div class="container">
         <a class="navbar-brand" href="#">
           <h1>
@@ -27,7 +27,7 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <router-link
-                class="nav-link"
+                class="nav-link user"
                 :class="{ active: CurrentPage == 'home' }"
                 to="/"
                 @click="CurrentPage = 'home'"
@@ -43,7 +43,7 @@
             </li>
             <li class="nav-item">
               <router-link
-                class="nav-link"
+                class="nav-link user"
                 href="#"
                 :class="{ active: CurrentPage == 'menu' }"
                 to="/menu"
@@ -61,7 +61,7 @@
             <li class="nav-item">
               <router-link
                 to="/favorite"
-                class="nav-link"
+                class="nav-link user"
                 href="#"
                 :class="{ active: CurrentPage == 'favorite' }"
                 @click="CurrentPage = 'favorite'"
@@ -78,7 +78,7 @@
             <li class="nav-item">
               <router-link
                 to="/cart"
-                class="nav-link"
+                class="nav-link user"
                 href="#"
                 :class="{ active: CurrentPage == 'cart' }"
                 @click="CurrentPage = 'cart'"
@@ -95,7 +95,7 @@
             <li class="nav-item">
               <router-link
                 to="/order"
-                class="nav-link"
+                class="nav-link user"
                 href="#"
                 :class="{ active: CurrentPage == 'order' }"
                 @click="CurrentPage = 'order'"
@@ -112,7 +112,7 @@
             <li class="nav-item">
               <router-link
                 to="/contact"
-                class="nav-link"
+                class="nav-link user"
                 href="#"
                 :class="{ active: CurrentPage == 'contact' }"
                 @click="CurrentPage = 'contact'"
