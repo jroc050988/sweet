@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-      bannerImg: '/sweet/dist/img/banner05.6586f0d8.jpg',
+      bannerImg: 'https://storage.googleapis.com/vue-course-api.appspot.com/lili-api/1660198015057.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=Bw7Mzu8Qdpq9AERV6J0PwRq90gFQbtXo8rvAbcUBhtzbX50qEz%2B179XW9C1CbrPa%2FnyRxaq5EkFxIfE3CVvI1BQuisJgNGRugrjT2ynIWtUh3tHMMSRFgwMs85h0NPCU%2BdEoyRmE3GcV14zrCdJwrvWb059civuD3dXkBM43se06BIctLqOo5v1Ux9I40CedE1PCPHRii0a9BjCBR8zjDpIcVOh%2BKm%2FYQcosImH3lQ8R0C9QdGnPnukeIonERCclgDBAmhEzBZEg%2FMD%2Brl26PVKpbXYlszRrEjDTuLUd%2B%2FQko3wnnJj6e4xkoKroG3T%2F51FtLR%2FwPYVEiDkX4gDfTQ%3D%3D',
     };
   },
 };
