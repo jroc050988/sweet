@@ -6,6 +6,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
 import 'wowjs/css/libs/animate.css';
 
 import App from './App.vue';
@@ -15,5 +18,6 @@ library.add(fas, fab, far);
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
+app.use(VueAxios, axios);
 app.use(router);
 app.mount('#app');

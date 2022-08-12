@@ -1,0 +1,22 @@
+.toast-container {
+  position: absolute;
+  top: 80px;
+  right: 1rem;
+  .toast-icon {
+    font-size: 1.1rem;
+    position: relative;
+    padding: 0.25rem 0.5rem;
+    background-color: $green;
+    color: $white;
+    &.success {
+      background-color: $green;
+    }
+    &.fail {
+      background-color: $red;
+    }
+  }
+  .toast-body {
+    font-size: 1.1rem;
+    padding: 0.25rem 1rem;
+  }
+}

@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div class="container">
     <div class="adminInner">
       <div class="ImageBox">
@@ -27,3 +28,13 @@
     </div>
   </div>
 </template>
+
+<script>
+import Header from '@/components/adminComponents/Header.vue';
+
+export default {
+  components: {
+    Header,
+  },
+};
+</script>

@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div class="container">
     <div class="adminInner">
       <div class="pdtSearchBox">
@@ -10,7 +11,11 @@
         </div>
       </div>
       <div class="btnBox">
-        <button type="button" class="btn btn-primary mr-2 border-start-0" @click="openModal()">
+        <button
+          type="button"
+          class="btn btn-primary mr-2 border-start-0"
+          @click="openModal()"
+        >
           新增甜品
         </button>
       </div>
@@ -75,12 +80,14 @@
 </template>
 
 <script>
+import Header from '@/components/adminComponents/Header.vue';
 import Pagination from '@/components/Pagination.vue';
 import Modal from '@/components/adminComponents/Modal.vue';
 import DelModal from '@/components/adminComponents/DelModal.vue';
 
 export default {
   components: {
+    Header,
     Pagination,
     Modal,
     DelModal,

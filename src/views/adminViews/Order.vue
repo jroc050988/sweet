@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div class="container">
     <div class="adminInner">
       <div class="pdtSearchBox">
@@ -49,17 +50,18 @@
       </div>
       <Pagination></Pagination>
       <OrderModal ref="detail"></OrderModal>
-
     </div>
   </div>
 </template>
 
 <script>
+import Header from '@/components/adminComponents/Header.vue';
 import Pagination from '@/components/Pagination.vue';
 import OrderModal from '@/components/adminComponents/OrderModal.vue';
 
 export default {
   components: {
+    Header,
     Pagination,
     OrderModal,
   },

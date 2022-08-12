@@ -13,7 +13,7 @@ header.admin {
   // background: url(/sweet/dist/assets/img/adminBg.jpg) center/cover;
 }
 .adminInner {
-  min-height: calc(100vh - 105px);
+  min-height: calc(100vh - 32px);
   position: relative;
   padding: 2rem;
 }
@@ -27,6 +27,16 @@ header.admin {
   padding: 2rem 5rem;
   box-shadow: 2px 2px 20px $gray-500;
   border-radius: 0.5rem;
+  .inputBox {
+    position: relative;
+    .eyeicon {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      transform: translate(-16px, -8px);
+      cursor: pointer;
+    }
+  }
 }
 .pdtSearchBox {
   margin-bottom: 2rem;
@@ -56,42 +66,42 @@ header.admin {
   tbody {
     tr {
       border-bottom: 1px solid $black;
-      td{
-        padding: .5rem;
+      td {
+        padding: 0.5rem;
       }
-      .title{
+      .title {
         text-align: left;
       }
     }
   }
 }
-.orderModal{
-  p{
+.orderModal {
+  p {
     margin-bottom: 0;
   }
-  .orderTitle{
+  .orderTitle {
     background: $red;
     color: $white;
     border-bottom: none;
   }
-  .orderItem{
+  .orderItem {
     border-bottom: 1px solid $gray-200;
     display: flex;
     justify-content: space-between;
-    padding: .25rem;
+    padding: 0.25rem;
   }
-  .orderTotal{
+  .orderTotal {
     border-top: 1px solid $black;
-    .orderItem{
+    .orderItem {
       border-bottom: none;
-      &:last-child{
+      &:last-child {
         border-top: 1px solid $gray-200;
       }
     }
   }
 }
-.modal{
-  .modalTitle{
+.modal {
+  .modalTitle {
     font-size: 1.5rem;
   }
 }

@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div class="container">
     <div class="adminInner">
       <div class="pdtSearchBox">
@@ -75,12 +76,14 @@
 </template>
 
 <script>
+import Header from '@/components/adminComponents/Header.vue';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/adminComponents/DelModal.vue';
 import Cupons from '@/components/adminComponents/CuponsModal.vue';
 
 export default {
   components: {
+    Header,
     Pagination,
     DelModal,
     Cupons,
