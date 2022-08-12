@@ -33,35 +33,33 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in 8" :key="item">
-              <td>分類</td>
+            <tr v-for="(item, index) in productList" :key="index">
+              <td>{{ item.category }}</td>
               <td>
-                <img src="@/assets/img/demo01.jpg" alt="" class="img-fluid" />
+                <img :src="item.imageUrl" alt="" class="img-fluid" />
               </td>
-              <td class="title">南瓜粥</td>
+              <td class="title">{{ item.title }}</td>
               <td>
-                200
-              </td>
-              <td>
-                100
+                {{ item.origin_price }}
               </td>
               <td>
-                <span class="text-success">上架中</span>
+                {{ item.price }}
+              </td>
+              <td>
+                <span class="text-success">
+                  {{ item.is_enabled == 1 ? '上架中' : '未上架' }}
+                </span>
               </td>
               <td>
                 <div class="btn-group">
                   <button
                     class="btn btn-outline-primary btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#Modal"
                     @click="openModal()"
                   >
                     編輯
                   </button>
                   <button
                     class="btn btn-outline-danger btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#delModal"
                     @click="openDelModal()"
                   >
                     刪除
@@ -86,6 +84,11 @@ import Modal from '@/components/adminComponents/Modal.vue';
 import DelModal from '@/components/adminComponents/DelModal.vue';
 
 export default {
+  data() {
+    return {
+      productList: [],
+    };
+  },
   components: {
     Header,
     Pagination,
@@ -99,6 +102,21 @@ export default {
     openDelModal() {
       this.$refs.delModal.showModal();
     },
+  },
+  mounted() {
+    const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
+    this.$http
+      .get(api)
+      .then((res) => {
+        if (res.data.success) {
+          this.productList = res.data.products;
+        } else {
+          console.err('列表取得失敗');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>

@@ -72,7 +72,7 @@ export default {
             });
             const { token, expired } = res.data;
             document.cookie = `hexToken=${token};expires=${new Date(expired)}`;
-            this.$router.push('/admin/image');
+            this.$router.push('/admin/products');
           } else {
             console.error(res.data.message);
             this.emitter.emit('pushMessage', {

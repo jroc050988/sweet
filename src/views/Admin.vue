@@ -30,7 +30,7 @@ export default {
       .post(api)
       .then((res) => {
         if (res.data.success) {
-          this.$router.push('/admin/image');
+          this.$router.push('/admin/products');
         } else {
           this.$router.push('/admin/login');
         }

@@ -21,10 +21,6 @@ const routes = [
         component: () => import('../views/adminViews/Login.vue'),
       },
       {
-        path: '/admin/image',
-        component: () => import('../views/adminViews/Image.vue'),
-      },
-      {
         path: '/admin/products',
         component: () => import('../views/adminViews/Products.vue'),
       },

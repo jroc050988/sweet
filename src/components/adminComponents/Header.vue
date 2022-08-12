@@ -29,16 +29,6 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link" to="/admin/image">
-                <span class="nav-icon">
-                  <font-awesome-icon icon="fa-solid fa-image" />
-                </span>
-                <span class="nav-text">
-                  形象圖上傳
-                </span>
-              </router-link>
-            </li>
-            <li class="nav-item">
               <router-link class="nav-link" to="/admin/products">
                 <span class="nav-icon">
                   <font-awesome-icon icon="fa-solid fa-clipboard-list" />
