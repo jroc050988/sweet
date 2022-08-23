@@ -10,7 +10,7 @@
   background: $red;
   display: flex;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   p {
     margin: 0;
     padding: 0.5rem;
@@ -31,6 +31,9 @@
   &:last-child {
     margin-bottom: 0;
     border-bottom: 0;
+  }
+  &:first-child {
+    padding-top: 0.5rem
   }
   .pdtPrice,
   .btnBox,
@@ -84,6 +87,9 @@
   .cartTotalItem {
     display: flex;
     justify-content: space-between;
+    &.red{
+      color: $red;
+    }
     .title {
       min-width: 100px;
     }
@@ -103,6 +109,9 @@
   .note-ok {
     color: $green;
   }
+  .note-fail {
+    color: $red;
+  }
 }
 
 //check
@@ -111,6 +120,10 @@
     justify-content: space-between;
     text-align: left;
     border-color: #eee;
+    &.title{
+      background: $red;
+      color: $white;
+    }
     &:last-child {
       border-bottom: 1px solid $black;
     }
@@ -151,10 +164,16 @@
 }
 .cartFinBox {
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 2rem;
   width: 500px;
   text-align: center;
   background: rgba(255, 255, 255, 0.5);
+  p{
+    text-align: left;
+    &.note{
+      color: $green;
+    }
+  }
 }
 .orderSearch {
   max-width: 600px;

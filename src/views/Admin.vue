@@ -9,13 +9,9 @@
 </template>
 
 <script>
-import emitter from '@/mixins/mitter';
 import ToastsList from '@/components/ToastsList.vue';
 
 export default {
-  provide: {
-    emitter,
-  },
   components: {
     ToastsList,
   },
@@ -30,7 +26,7 @@ export default {
       .post(api)
       .then((res) => {
         if (res.data.success) {
-          this.$router.push('/admin/products');
+          // this.$router.push('/admin/products');
         } else {
           this.$router.push('/admin/login');
         }

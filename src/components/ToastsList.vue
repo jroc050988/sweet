@@ -20,7 +20,6 @@ export default {
   mounted() {
     this.emitter.on('pushMessage', (data) => {
       this.messages.push(data);
-      console.log(this.messages);
     });
   },
 };

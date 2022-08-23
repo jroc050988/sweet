@@ -74,11 +74,11 @@ export default {
             document.cookie = `hexToken=${token};expires=${new Date(expired)}`;
             this.$router.push('/admin/products');
           } else {
-            console.error(res.data.message);
+            console.erroror(res.data.message);
             this.emitter.emit('pushMessage', {
               style: 'fail',
               content: '登入失敗',
-              icon: 'fa-solid fa-circle-xmark',
+              icon: 'fa-solid fa-triangle-exclamation',
             });
           }
         })

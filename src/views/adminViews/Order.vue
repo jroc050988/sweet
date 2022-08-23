@@ -15,60 +15,94 @@
           <thead>
             <tr>
               <th width="120">訂單日期</th>
-              <th width="120">訂單編號</th>
+              <th width="360">訂單編號</th>
               <th width="120">訂購人</th>
-              <th width="120">付款方式</th>
               <th width="120">付款日期</th>
               <th width="120">詳細內容</th>
               <th>備註</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in 10" :key="item">
-              <td>2022/08/10</td>
+            <tr v-for="(item, index) in orderList" :key="index">
+              <td>{{ $filter.getDate(item.create_at * 1000) }}</td>
               <td>
-                20220810
+                {{ item.id }}
               </td>
-              <td>翁莉莉</td>
-              <td>
-                信用卡
+              <td>{{ item.user.name }}</td>
+              <td v-if="item.is_paid">
+                {{ item.paid_date }}
+              </td>
+              <td v-else>
+                尚未付款
               </td>
               <td>
-                2022/08/10
-              </td>
-              <td>
-                <a href="#" title="查詢內容" @click.prevent="openDetail">
+                <a href="#" title="查詢內容" @click.prevent="openDetail(item)">
                   <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                 </a>
               </td>
               <td>
-                草莓蛋糕的鮮奶油少一點，不要太甜，壽星不喜歡吃太甜，謝謝!!
+                {{ item.message }}
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <Pagination></Pagination>
-      <OrderModal ref="detail"></OrderModal>
+      <!-- <Pagination></Pagination> -->
+      <OrderModal ref="detail" :data="orderDetail"></OrderModal>
+      <Loading :isShow="isLoading"></Loading>
     </div>
   </div>
 </template>
 
 <script>
 import Header from '@/components/adminComponents/Header.vue';
-import Pagination from '@/components/Pagination.vue';
+// import Pagination from '@/components/Pagination.vue';
 import OrderModal from '@/components/adminComponents/OrderModal.vue';
+import Loading from '@/components/Loading.vue';
 
 export default {
+  data() {
+    return {
+      orderList: [],
+      isLoading: false,
+      orderDetail: {},
+    };
+  },
   components: {
     Header,
-    Pagination,
+    // Pagination,
     OrderModal,
+    Loading,
   },
   methods: {
-    openDetail() {
+    openDetail(item) {
+      this.orderDetail = item;
+      console.log(this.orderDetail);
       this.$refs.detail.showModal();
     },
+    getOrder() {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders`;
+      this.$http
+        .get(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.orderList = res.data.orders;
+            console.log(res.data);
+            this.isLoading = false;
+          } else {
+            console.log('列表取得失敗');
+            this.isLoading = false;
+          }
+          console.log(res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
+  mounted() {
+    this.getOrder();
   },
 };
 </script>

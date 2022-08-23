@@ -49,7 +49,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/admin/cupons">
+              <router-link class="nav-link" to="/admin/coupons">
                 <span class="nav-icon">
                   <font-awesome-icon icon="fa-solid fa-ticket" />
                 </span>

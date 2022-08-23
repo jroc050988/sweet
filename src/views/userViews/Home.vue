@@ -15,5 +15,8 @@ export default {
     Banner,
     IxProducts,
   },
+  mounted() {
+    this.$emit('unit', 'home');
+  },
 };
 </script>

@@ -1,7 +1,8 @@
 .toast-container {
-  position: absolute;
+  position: fixed;
   top: 80px;
   right: 1rem;
+  z-index: 10001;
   .toast-icon {
     font-size: 1.1rem;
     position: relative;

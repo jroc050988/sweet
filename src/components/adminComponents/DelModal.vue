@@ -15,7 +15,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <p>您確定要刪除此產品嗎?</p>
+          <p>您確定要刪除{{pdt.title}}嗎?</p>
         </div>
         <div class="modal-footer">
           <button
@@ -25,7 +25,7 @@
           >
             取消
           </button>
-          <button type="button" class="btn btn-primary">
+          <button type="button" class="btn btn-primary" @click="$emit('delProduct', pdt)">
             確定
           </button>
         </div>
@@ -41,5 +41,6 @@ export default {
   mixins: [
     modal,
   ],
+  props: ['pdt'],
 };
 </script>

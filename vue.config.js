@@ -1,3 +1,3 @@
-// module.exports = {
-//   publicPath: '/sweet/dist/',
-// };
+module.exports = {
+  publicPath: '/sweet/dist/',
+};

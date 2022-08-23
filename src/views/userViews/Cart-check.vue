@@ -1,6 +1,6 @@
 <template>
   <div class="pageInner cartPage cartCheckPage">
-    <div class="container">
+    <Form class="container" v-slot="{ errors }" @submit="createOrder">
       <div class="cartListBox">
         <div class="titleBox">
           <span class="titleEn">Check</span>
@@ -9,84 +9,224 @@
           </h2>
         </div>
         <p></p>
-        <form class="infoFrom">
+        <div class="infoFrom">
           <div class="mb-3">
             <label for="name" class="form-label">
               訂購人姓名
               <span class="tag">必填</span>
             </label>
-            <input type="email" class="form-control" id="name" />
+            <Field
+              type="email"
+              class="form-control"
+              id="name"
+              name="訂購人姓名"
+              :class="{ 'is-invalid': errors['訂購人姓名'] }"
+              v-model="orderData.user.name"
+              rules="required"
+            ></Field>
+            <ErrorMessage name="訂購人姓名" class="inputNote"></ErrorMessage>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">
               聯絡電子信箱
               <span class="tag">必填</span>
             </label>
-            <input type="email" class="form-control" id="email" />
+            <Field
+              type="email"
+              class="form-control"
+              id="email"
+              name="聯絡人電子信箱"
+              :class="{ 'is-invalid': errors['聯絡人電子信箱'] }"
+              v-model="orderData.user.email"
+              rules="required|email"
+            ></Field>
+            <ErrorMessage
+              name="聯絡人電子信箱"
+              class="inputNote"
+            ></ErrorMessage>
           </div>
           <div class="mb-3">
             <label for="tel" class="form-label">
-              聯絡電話
+              手機號碼
               <span class="tag">必填</span>
             </label>
-            <input type="email" class="form-control" id="tel" />
+            <Field
+              type="text"
+              class="form-control"
+              id="tel"
+              name="手機號碼"
+              :class="{ 'is-invalid': errors['手機號碼'] }"
+              v-model="orderData.user.tel"
+              :rules="isPhone"
+            ></Field>
+            <ErrorMessage name="手機號碼" class="inputNote"></ErrorMessage>
           </div>
           <div class="mb-3">
             <label for="add" class="form-label">
               收件地址
               <span class="tag">必填</span>
             </label>
-            <input type="email" class="form-control" id="add" />
+            <Field
+              type="text"
+              class="form-control"
+              id="add"
+              name="收件地址"
+              :class="{ 'is-invalid': errors['收件地址'] }"
+              v-model="orderData.user.address"
+              rules="required"
+            ></Field>
+            <ErrorMessage name="收件地址" class="inputNote"></ErrorMessage>
           </div>
           <div class="mb-3">
             <label for="massages" class="form-label">
               備註
             </label>
-            <textarea class="form-control" id="massages" rows="3"></textarea>
+            <textarea
+              class="form-control"
+              id="massages"
+              rows="3"
+              v-model="orderData.message"
+            ></textarea>
           </div>
           <div class="form-check">
-            <input
+            <Field
               class="form-check-input"
               type="checkbox"
-              value=""
+              value="'check'"
               id="flexCheckDefault"
-            />
+              name="確認資料"
+              rules="required"
+            ></Field>
             <label class="form-check-label" for="flexCheckDefault">
-              我已確認資料填寫無誤，並已詳細閱讀<a href="" title="">銷售條款</a>。 <span class="tag">必填</span>
+              我已確認資料填寫無誤，並已詳細閱讀
+              <a href="" title="">銷售條款</a>
+              。
+              <span class="tag">必填</span>
             </label>
+            <br />
+            <ErrorMessage name="確認資料">
+              <div class="inputNote">請確認資料，並詳細閱讀銷售條款</div>
+            </ErrorMessage>
           </div>
-        </form>
+        </div>
       </div>
       <div class="cartTotalBox">
-        <div>
-          <div class="cartItem" v-for="item in 3" :key="item">
-            <p class="pdtName">南瓜粥</p>
-            <p class="pdtNum">1</p>
-            <p class="pdtTotal">¥ 2,148</p>
-          </div>
+        <div class="orderDetailList mb-1">
+          <table class="w-100">
+            <thead>
+              <tr class="orderTitle">
+                <td>名稱</td>
+                <td width="60">數量</td>
+                <td>售價</td>
+                <td>小計</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in cartList" :key="index">
+                <td>{{ item.product.title }}</td>
+                <td>{{ item.qty }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>{{ item.total }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="cartTotalItem my-2">
+        <small
+          class="note-ok"
+          v-if="coupon && Object.keys(coupon).length !== 0"
+        >
+          <font-awesome-icon icon="fa-solid fa-circle-check" />
+          已套用優惠券"{{ coupon.code }}"；折扣{{ 100 - coupon.percent }}%
+        </small>
+        <div class="cartTotalItem mt-2">
           <p class="title">總價</p>
-          <p>¥ 2,148</p>
+          <p>¥ {{ total }}</p>
         </div>
-        <div class="cartTotalItem">
+        <div class="cartTotalItem mt-2 red" v-if="coupon && Object.keys(coupon).length !== 0">
+          <p class="title">折扣</p>
+          <p>- ¥ {{ discount }}</p>
+        </div>
+        <div class="cartTotalItem mt-2">
           <p class="title">運費</p>
-          <p>¥ 1,000</p>
+          <p>¥ 100</p>
         </div>
         <hr />
         <div class="cartTotalItem">
           <p class="title">結算</p>
-          <p>¥ 1,000</p>
+          <p>¥ {{ finalTotal }}</p>
         </div>
         <div class="btnBox nextStep">
-          <button type="button" class="btn btn-outline-primary mr-2">
+          <button
+            type="button"
+            class="btn btn-outline-primary mr-2"
+            @click="$router.push('/cart')"
+          >
             上一步
           </button>
-          <button type="button" class="btn btn-primary mr-2">
+          <button class="btn btn-primary mr-2">
             去結帳
           </button>
         </div>
       </div>
-    </div>
+    </Form>
   </div>
+  <Loading :isShow="isLoading"></Loading>
 </template>
+
+<script>
+import cartInfo from '@/mixins/cartInfo';
+
+export default {
+  mixins: [cartInfo],
+  data() {
+    return {
+      orderData: {
+        user: {},
+        message: '',
+      },
+    };
+  },
+  methods: {
+    createOrder() {
+      console.log('createOrder');
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
+      this.$http
+        .post(api, { data: this.orderData })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.success) {
+            this.isLoading = false;
+            document.cookie = `orderId=${res.data.orderId}`;
+            document.cookie = `create=${res.data.create_at}`;
+            this.$router.push('/cart-ok');
+            this.emitter.emit('pushMessage', {
+              style: 'success',
+              content: res.data.message,
+              icon: '',
+            });
+            this.emitter.emit('oderFinish', res.data);
+            this.$router.push('/cart-ok');
+          } else {
+            this.isLoading = false;
+            this.emitter.emit('pushMessage', {
+              style: 'fail',
+              content: res.data.message,
+              icon: 'fa-solid fa-triangle-exclamation',
+            });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/;
+      return phoneNumber.test(value) ? true : '請輸入正確的手機號碼';
+    },
+  },
+  mounted() {
+    this.$emit('unit', 'cart');
+  },
+};
+</script>

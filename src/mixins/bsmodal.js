@@ -10,6 +10,9 @@ export default {
     showModal() {
       this.modal.show();
     },
+    hideModal() {
+      this.modal.hide();
+    },
   },
   mounted() {
     this.modal = new Bsmodal(this.$refs.modal);

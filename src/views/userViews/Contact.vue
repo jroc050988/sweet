@@ -62,3 +62,11 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+    this.$emit('unit', 'contact');
+  },
+};
+</script>
