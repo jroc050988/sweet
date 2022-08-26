@@ -10,9 +10,6 @@
   .infoBox {
     width: 50%;
     padding: 2rem;
-    .price {
-      font-size: 1.5rem;
-    }
     .note {
       color: $red;
       text-align: right;
@@ -37,6 +34,35 @@
   }
   .buyBtn {
     padding: 0.5rem 2rem;
+  }
+}
+.priceBox {
+  display: flex;
+  align-items: flex-end;
+  p {
+    margin-bottom: 0;
+  }
+  .price {
+    font-size: 1.75rem;
+  }
+  .unit {
+    margin-left: 1rem;
+  }
+  &.discount {
+    .origin_price {
+      position: relative;
+      font-size: 1rem;
+      &::before {
+        content: '';
+        position: absolute;
+        width: 120%;
+        height: 1px;
+        background: #333;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) rotate(-10deg);
+      }
+    }
   }
 }
 .susume {

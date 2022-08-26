@@ -2,14 +2,6 @@
   <Header></Header>
   <div class="container">
     <div class="adminInner">
-      <div class="pdtSearchBox">
-        <div class="btnBox">
-          <input type="text" placeholder="請輸入優惠序號" />
-          <button type="button" class="btn btn-primary mr-2 border-start-0">
-            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-          </button>
-        </div>
-      </div>
       <div class="btnBox">
         <button
           type="button"

@@ -4,11 +4,42 @@
     <div class="adminInner">
       <div class="pdtSearchBox">
         <div class="btnBox">
-          <input type="text" placeholder="請輸入產品名稱" />
-          <button type="button" class="btn btn-primary mr-2 border-start-0">
+          <select
+            class="form-select"
+            v-model="selectInput"
+            @change="searchBox('category', selectInput)"
+          >
+            <option value="">-----請選擇分類-----</option>
+            <option value="派對蛋糕">派對蛋糕</option>
+            <option value="小蛋糕">小蛋糕</option>
+            <option value="鬆餅">鬆餅</option>
+            <option value="麵包">麵包</option>
+            <option value="其他甜品">其他甜品</option>
+            <option value="各式飲品">各式飲品</option>
+          </select>
+        </div>
+        <div class="btnBox">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="請輸入產品名稱"
+            v-model="searchInput"
+          />
+          <button
+            type="button"
+            class="btn btn-primary mr-2 border-start-0"
+            @click="searchBox('title', searchInput)"
+          >
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
           </button>
         </div>
+        <button
+            type="button"
+            class="btn btn-primary mr-2 border-start-0"
+            @click="clear"
+          >
+            清除搜尋
+          </button>
       </div>
       <div class="btnBox">
         <button
@@ -38,7 +69,7 @@
               <td>
                 <img :src="item.imageUrl" alt="" class="img-fluid" />
               </td>
-              <td class="title">{{ item.title }}{{ item.id }}</td>
+              <td class="title">{{ item.title }}</td>
               <td>
                 {{ item.origin_price }}
               </td>
@@ -71,9 +102,17 @@
         </table>
       </div>
       <Loading :isShow="isLoading"></Loading>
-      <Pagination :page="page" @changePage="changePage" ></Pagination>
+      <Pagination
+        :page="page"
+        @changePage="changePage"
+        v-if="!isSearch"
+      ></Pagination>
       <Modal ref="modal" :pdt="tempProduct" @update="updateProduct"></Modal>
-      <DelModal ref="delModal" :pdt="tempProduct" @del-product="delProduct"></DelModal>
+      <DelModal
+        ref="delModal"
+        :pdt="tempProduct"
+        @del-product="delProduct"
+      ></DelModal>
     </div>
   </div>
 </template>
@@ -94,6 +133,11 @@ export default {
       page: {},
       currentPage: 1,
       isLoading: false,
+      allProducts: [],
+      searchInput: '',
+      isSearch: false,
+      selectInput: '',
+      searchBoth: false,
     };
   },
   inject: ['emitter'],
@@ -127,7 +171,7 @@ export default {
     },
     openModal(isNew, item) {
       this.$refs.modal.showModal();
-      this.tempProduct = { ...item };
+      this.tempProduct = JSON.parse(JSON.stringify(item));
       this.isNew = isNew;
       console.log(this.productList, 'productList');
     },
@@ -138,26 +182,29 @@ export default {
     delProduct(item) {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
-      this.$http.delete(api).then((res) => {
-        if (res.data.success) {
-          this.emitter.emit('pushMessage', {
-            style: 'success',
-            content: res.data.message,
-            icon: '',
-          });
-          this.getProducts();
-        } else {
-          this.emitter.emit('pushMessage', {
-            style: 'fail',
-            content: res.data.message,
-            icon: 'fa-solid fa-triangle-exclamation',
-          });
-        }
-        this.$refs.delModal.hideModal();
-        this.isLoading = false;
-      }).catch((err) => {
-        console.error(err);
-      });
+      this.$http
+        .delete(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.emitter.emit('pushMessage', {
+              style: 'success',
+              content: res.data.message,
+              icon: '',
+            });
+            this.getProducts();
+          } else {
+            this.emitter.emit('pushMessage', {
+              style: 'fail',
+              content: res.data.message,
+              icon: 'fa-solid fa-triangle-exclamation',
+            });
+          }
+          this.$refs.delModal.hideModal();
+          this.isLoading = false;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
     updateProduct(item) {
       this.isLoading = true;
@@ -170,31 +217,77 @@ export default {
         method = 'post';
       }
       this.isLoading = true;
-      this.$http[method](api, { data: item }).then((res) => {
-        this.isLoading = false;
-        this.$refs.modal.hideModal();
-        if (res.data.success) {
-          this.emitter.emit('pushMessage', {
-            style: 'success',
-            content: res.data.message,
-            icon: '',
-          });
-          this.getProducts();
-        } else {
-          this.emitter.emit('pushMessage', {
-            style: 'fail',
-            content: res.data.message,
-            icon: 'fa-solid fa-triangle-exclamation',
-          });
-        }
-      }).catch((err) => {
-        this.isLoading = false;
-        console.error(err);
-      });
+      this.$http[method](api, { data: item })
+        .then((res) => {
+          this.isLoading = false;
+          this.$refs.modal.hideModal();
+          if (res.data.success) {
+            this.emitter.emit('pushMessage', {
+              style: 'success',
+              content: res.data.message,
+              icon: '',
+            });
+            this.getProducts();
+          } else {
+            this.emitter.emit('pushMessage', {
+              style: 'fail',
+              content: res.data.message,
+              icon: 'fa-solid fa-triangle-exclamation',
+            });
+          }
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          console.error(err);
+        });
       this.isLoading = false;
     },
     changePage(page) {
       this.currentPage = page;
+      this.getProducts();
+    },
+    search(search, id) {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/all`;
+      this.$http
+        .get(api)
+        .then((res) => {
+          if (res.data.success) {
+            if (this.searchBoth) {
+              console.log('both');
+              this.productList = Object.values(this.allProducts)
+                .filter((item) => item.title.match(this.searchInput)
+                  && item.category.match(this.selectInput));
+            } else {
+              this.allProducts = res.data.products;
+              this.productList = Object.values(this.allProducts)
+                .filter((item) => item[search].match(id));
+            }
+            this.isLoading = false;
+          } else {
+            console.error('列表取得失敗');
+            this.isLoading = false;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    searchBox(search, id) {
+      if (this.searchInput !== '' && this.selectInput !== '') {
+        this.search();
+        this.searchBoth = true;
+      } else if (id === '') {
+        this.clear();
+      } else {
+        this.search(search, id);
+        this.isSearch = true;
+      }
+    },
+    clear() {
+      this.isSearch = false;
+      this.searchInput = '';
+      this.selectInput = '';
       this.getProducts();
     },
   },

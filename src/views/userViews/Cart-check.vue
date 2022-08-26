@@ -140,20 +140,20 @@
         </small>
         <div class="cartTotalItem mt-2">
           <p class="title">總價</p>
-          <p>¥ {{ total }}</p>
+          <p>$ {{ total }}</p>
         </div>
         <div class="cartTotalItem mt-2 red" v-if="coupon && Object.keys(coupon).length !== 0">
           <p class="title">折扣</p>
-          <p>- ¥ {{ discount }}</p>
+          <p>- $ {{ discount }}</p>
         </div>
         <div class="cartTotalItem mt-2">
           <p class="title">運費</p>
-          <p>¥ 100</p>
+          <p>$ {{fare}}</p>
         </div>
         <hr />
         <div class="cartTotalItem">
           <p class="title">結算</p>
-          <p>¥ {{ finalTotal }}</p>
+          <p>$ {{ finalTotal }}</p>
         </div>
         <div class="btnBox nextStep">
           <button
@@ -197,16 +197,14 @@ export default {
           console.log(res.data);
           if (res.data.success) {
             this.isLoading = false;
-            document.cookie = `orderId=${res.data.orderId}`;
-            document.cookie = `create=${res.data.create_at}`;
+            sessionStorage.setItem('orderId', res.data.orderId);
+            sessionStorage.setItem('create', res.data.create_at);
             this.$router.push('/cart-ok');
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
               icon: '',
             });
-            this.emitter.emit('oderFinish', res.data);
-            this.$router.push('/cart-ok');
           } else {
             this.isLoading = false;
             this.emitter.emit('pushMessage', {

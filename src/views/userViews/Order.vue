@@ -4,8 +4,7 @@
       <div class="titleBox">
         <span class="titleEn">Order</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>訂</span>
-          單搜尋
+          <span>訂</span>單搜尋
         </h2>
       </div>
       <div class="btnBox orderSearch">
@@ -26,8 +25,7 @@
       <div class="orderInfo" v-if="Object.keys(orderInfo).length !== 0">
         <div class="orderInfoList">
           <div>訂單編號: {{ orderInfo.id }}</div>
-          <div>訂單日期: {{ $filter.getDate(orderInfo.create_at *1000) }}</div>
-          <div>{{ orderInfo.is_paid ? '已付款' : '未付款' }}</div>
+          <div>訂單日期: {{ $filter.getDate(orderInfo.create_at * 1000) }}</div>
         </div>
         <div class="cartTotalBox">
           <div class="orderDetailList mb-1">
@@ -47,25 +45,33 @@
                   <td>{{ item.product.price }}</td>
                   <td>{{ item.total }}</td>
                 </tr>
+                <tr v-if="coupon">
+                  <td colspan="6" class="text-left">
+                    <font-awesome-icon icon="fa-solid fa-circle-check" />
+                    已套用{{ coupon.title }}優惠券"{{ coupon.code }}"；折扣{{
+                      100 - coupon.percent
+                    }}%
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
           <div class="cartTotalItem my-2">
             <p class="title">總價</p>
-            <p>¥ {{ origin_total }}</p>
+            <p>$ {{ origin_total }}</p>
           </div>
           <div class="cartTotalItem red my-2">
             <p class="title">折扣</p>
-            <p>– ¥ {{ discount }}</p>
+            <p>– $ {{ discount }}</p>
           </div>
           <div class="cartTotalItem">
             <p class="title">運費</p>
-            <p>¥ {{ fare }}</p>
+            <p>$ {{ fare }}</p>
           </div>
           <hr />
           <div class="cartTotalItem">
             <p class="title">結算</p>
-            <p>¥ {{ finalTotal }}</p>
+            <p>$ {{ finalTotal }}</p>
           </div>
         </div>
         <div class="mb-3">
@@ -133,15 +139,22 @@
       </div>
     </div>
   </div>
+  <Loading :isShow="isLoading"></Loading>
 </template>
 
 <script>
+import Loading from '@/components/Loading.vue';
+
 export default {
   data() {
     return {
       orderCode: '',
       orderInfo: {},
+      coupon: {},
     };
+  },
+  components: {
+    Loading,
   },
   methods: {
     searchOrder() {
@@ -153,7 +166,8 @@ export default {
           console.log(res.data);
           if (res.data.success) {
             this.orderInfo = res.data.order;
-            console.log(res);
+            this.coupon = Object.values(res.data.order.products)[0].coupon;
+            console.log(this.coupon);
           } else {
             console.error('訂單取得失敗');
           }
@@ -163,6 +177,7 @@ export default {
           console.log(err);
           this.isLoading = false;
         });
+      this.orderCode = '';
     },
   },
   watch: {

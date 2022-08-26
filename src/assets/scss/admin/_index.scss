@@ -40,9 +40,16 @@ header.admin {
 }
 .pdtSearchBox {
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  select{
+    border: 1px solid $red;
+    width: 200px;
+  }
   .btnBox {
     display: flex;
-    justify-content: center;
+    margin: 0 1rem;
     input {
       border: 1px solid $red;
       padding: 0 0.5rem;
@@ -131,6 +138,10 @@ header.admin {
       td {
         border: 1px solid $black;
       }
+      input{
+        width: 80px;
+        text-align: center;
+      }
     }
   }
 }
@@ -138,6 +149,10 @@ header.admin {
   .modalTitle {
     font-size: 1.5rem;
     margin-bottom: 0;
+  }
+  .inputTitle{
+    font-size: 1.1rem;
+    font-weight: 500;
   }
   .imgBox {
     display: flex;
@@ -149,6 +164,9 @@ header.admin {
       position: relative;
     }
   }
+}
+.red{
+  color: $red;
 }
 .deleteBtn {
   border: none;

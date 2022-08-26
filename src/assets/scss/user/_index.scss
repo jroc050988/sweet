@@ -234,6 +234,11 @@
   .productItem {
     display: flex;
     background: rgba(255, 255, 255, 0.5);
+    &:hover{
+      img{
+        transform: scale(1.1);
+      }
+    }
     &:not(:last-child) {
       margin-bottom: 1rem;
     }
@@ -242,6 +247,9 @@
       max-height: 350px;
       overflow: hidden;
       margin: 0;
+      img{
+        transition: all .5s ease;
+      }
     }
     .textBox {
       width: calc(100% - 600px);
@@ -277,19 +285,30 @@
   }
   .productItem {
     position: relative;
+    height: 100%;
+    &:hover{
+      img{
+        transform: scale(1.1);
+      }
+    }
     .imgBox {
-      max-height: 270px;
+      max-height: 208px;
       overflow: hidden;
       position: relative;
       margin-bottom: 0;
+      img{
+        transition: all .5s ease;
+      }
     }
     .textBox {
       background: rgba(255, 255, 255, 0.5);
       padding: 1rem;
+      min-height: calc(100% - 208px);
+      display: flex;
+      flex-direction: column;
       .price {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         margin: 0 auto 0 0;
-        align-self: center;
       }
     }
   }

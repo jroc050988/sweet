@@ -41,7 +41,17 @@
         </div>
         <div class="infoBox">
           <h2 class="title">{{ product.title }}</h2>
-          <p class="price">¥ {{ product.price }}</p>
+          <div class="priceBox discount" v-if="product.origin_price !== product.price">
+            <div class="d-flex flex-column flex-start align-items-start">
+              <p class="origin_price">$ {{ product.origin_price }}</p>
+              <p class="price red">$ {{ product.price }}</p>
+            </div>
+            <p class="unit">/ {{ product.unit }}</p>
+          </div>
+          <div class="priceBox" v-else>
+            <p class="price">$ {{ product.price }}</p>
+            <p class="unit">/ {{ product.unit }}</p>
+          </div>
           <p>
             {{ product.description }}
           </p>
@@ -130,7 +140,7 @@
                   type="button"
                   title="查看更多"
                   class="btn btn-outline-primary"
-                  @click="addCart(product)"
+                  @click="addCart(product, true)"
                 >
                   加入購物車
                 </button>
@@ -142,7 +152,10 @@
                 type="button"
                 title="立即購買"
                 class="btn btn-primary buyBtn"
-                @click="addCart(product);$router.push('/cart')"
+                @click="
+                  addCart(product, true);
+                  $router.push('/cart')
+                "
               >
                 立即購買
               </button>
@@ -154,8 +167,7 @@
         <div class="titleBox">
           <span class="titleEn">Recommend</span>
           <h3 class="title wow fadeInUp" data-wow-delay="250ms">
-            <span>更</span>
-            多甜品
+            <span>更</span>多甜品
           </h3>
         </div>
         <swiper
@@ -166,125 +178,28 @@
           :modules="modules"
           class="susumeList"
         >
-          <swiper-slide class="productItem" v-for="item in 1" :key="item">
+          <swiper-slide
+            class="productItem"
+            v-for="item in susumeArry"
+            :key="item"
+          >
             <figure class="imgBox">
-              <router-link to="product">
-                <img src="@/assets/img/demo01.jpg" alt="" class="img-fluid" />
+              <router-link :to="`${item.id}`">
+                <img :src="item.imageUrl" :alt="item.title" class="img-fluid" />
               </router-link>
             </figure>
             <div class="textBox">
-              <h3 class="title"><a href="#" title="南瓜粥">南瓜粥</a></h3>
+              <h3 class="title">
+                <a
+                  href="#"
+                  title="item.title"
+                  @click.prevent="$router.push(item.id)"
+                >
+                  {{ item.title }}
+                </a>
+              </h3>
               <div class="btnBox mt-auto">
-                <p class="price">¥ 2,148</p>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary mr-2 border-end-0"
-                >
-                  <font-awesome-icon icon="fa-regular fa-heart" />
-                  <!-- <font-awesome-icon icon="fa-solid fa-heart" /> -->
-                </button>
-                <button
-                  type="button"
-                  title="查看更多"
-                  class="btn btn-outline-primary"
-                >
-                  加入購物車
-                </button>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide class="productItem" v-for="item in 1" :key="item">
-            <figure class="imgBox">
-              <router-link to="product">
-                <img src="@/assets/img/demo02.jpg" alt="" class="img-fluid" />
-              </router-link>
-            </figure>
-            <div class="textBox">
-              <h3 class="title"><a href="#" title="南瓜粥">南瓜粥</a></h3>
-              <div class="btnBox mt-auto">
-                <p class="price">¥ 2,148</p>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary mr-2 border-end-0"
-                >
-                  <font-awesome-icon icon="fa-regular fa-heart" />
-                  <!-- <font-awesome-icon icon="fa-solid fa-heart" /> -->
-                </button>
-                <button
-                  type="button"
-                  title="查看更多"
-                  class="btn btn-outline-primary"
-                >
-                  加入購物車
-                </button>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide class="productItem" v-for="item in 1" :key="item">
-            <figure class="imgBox">
-              <router-link to="product">
-                <img src="@/assets/img/demo03.jpg" alt="" class="img-fluid" />
-              </router-link>
-            </figure>
-            <div class="textBox">
-              <h3 class="title"><a href="#" title="南瓜粥">南瓜粥</a></h3>
-              <div class="btnBox mt-auto">
-                <p class="price">¥ 2,148</p>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary mr-2 border-end-0"
-                >
-                  <font-awesome-icon icon="fa-regular fa-heart" />
-                  <!-- <font-awesome-icon icon="fa-solid fa-heart" /> -->
-                </button>
-                <button
-                  type="button"
-                  title="查看更多"
-                  class="btn btn-outline-primary"
-                >
-                  加入購物車
-                </button>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide class="productItem" v-for="item in 1" :key="item">
-            <figure class="imgBox">
-              <router-link to="product">
-                <img src="@/assets/img/demo01.jpg" alt="" class="img-fluid" />
-              </router-link>
-            </figure>
-            <div class="textBox">
-              <h3 class="title"><a href="#" title="南瓜粥">南瓜粥</a></h3>
-              <div class="btnBox mt-auto">
-                <p class="price">¥ 2,148</p>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary mr-2 border-end-0"
-                  @click="addFavorite"
-                >
-                  <font-awesome-icon icon="fa-regular fa-heart" />
-                  <!-- <font-awesome-icon icon="fa-solid fa-heart" /> -->
-                </button>
-                <button
-                  type="button"
-                  title="查看更多"
-                  class="btn btn-outline-primary"
-                >
-                  加入購物車
-                </button>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide class="productItem" v-for="item in 1" :key="item">
-            <figure class="imgBox">
-              <router-link to="product">
-                <img src="@/assets/img/demo02.jpg" alt="" class="img-fluid" />
-              </router-link>
-            </figure>
-            <div class="textBox">
-              <h3 class="title"><a href="#" title="南瓜粥">南瓜粥</a></h3>
-              <div class="btnBox mt-auto">
-                <p class="price">¥ 2,148</p>
+                <p class="price">$ {{ item.price }}</p>
                 <button
                   type="button"
                   class="btn btn-outline-primary mr-2 border-end-0"
@@ -333,6 +248,7 @@ export default {
       thumbsSwiper: null,
       product: {},
       favoriteArry: [],
+      susumeArry: [],
     };
   },
   mixins: [addFavorite, addCart],
@@ -345,7 +261,7 @@ export default {
     setThumbsSwiper(swiper) {
       this.thumbsSwiper = swiper;
     },
-    getProducts() {
+    getProduct() {
       this.isLoading = true;
       const id = `${this.$route.params.id}`;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
@@ -360,6 +276,7 @@ export default {
           } else {
             console.error('列表取得失敗');
           }
+          this.getRecommend();
           this.isLoading = false;
         })
         .catch((err) => {
@@ -373,14 +290,43 @@ export default {
     numPlus(num) {
       this.product.num = num;
     },
+    getRecommend() {
+      this.susumeArry = [];
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
+      this.$http
+        .get(api)
+        .then((res) => {
+          if (res.data.success) {
+            console.log(res.data.products);
+            const arry = Object.values(res.data.products);
+            console.log(this.product);
+            arry.forEach((i) => {
+              if (i.category === this.product.category && i.id !== this.product.id) {
+                this.susumeArry.push(i);
+              }
+            });
+            console.log(this.susumeArry);
+          } else {
+            console.error('產品列表取得失敗');
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
   },
   mounted() {
     this.$emit('unit', 'menu');
-    this.getProducts();
+    this.getProduct();
     const collapseElementList = [].slice.call(this.$refs.collapseBtn);
     this.collapse = collapseElementList.map(
       (collapseEl) => new Collapse(collapseEl),
     );
+  },
+  watch: {
+    $route() {
+      this.getProduct();
+    },
   },
 };
 </script>

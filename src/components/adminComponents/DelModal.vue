@@ -15,7 +15,21 @@
           ></button>
         </div>
         <div class="modal-body">
-          <p>您確定要刪除{{pdt.title}}嗎?</p>
+          <p v-if="isAll">
+            確定要
+            <span class="red">刪除所有訂單</span>
+            嗎?
+          </p>
+          <p v-else-if="pdt.title">
+            您確定要
+            <span class="red">刪除{{ pdt.title }}</span>
+            嗎?
+          </p>
+          <p v-else>
+            確定要
+            <span class="red">刪除訂單{{ pdt.id }}</span>
+            嗎?
+          </p>
         </div>
         <div class="modal-footer">
           <button
@@ -25,7 +39,20 @@
           >
             取消
           </button>
-          <button type="button" class="btn btn-primary" @click="$emit('delProduct', pdt)">
+          <button
+            v-if="isAll"
+            type="button"
+            class="btn btn-primary"
+            @click="$emit('delAll')"
+          >
+            確定
+          </button>
+          <button
+            v-else
+            type="button"
+            class="btn btn-primary"
+            @click="$emit('delProduct', pdt)"
+          >
             確定
           </button>
         </div>
@@ -38,9 +65,7 @@
 import modal from '@/mixins/bsmodal';
 
 export default {
-  mixins: [
-    modal,
-  ],
-  props: ['pdt'],
+  mixins: [modal],
+  props: ['pdt', 'isAll'],
 };
 </script>

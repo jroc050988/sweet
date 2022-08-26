@@ -1,16 +1,21 @@
 export default {
   methods: {
-    addCart(item) {
+    addCart(item, productPage) {
       this.isLoading = true;
+      console.log(item.num);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       const addCart = {
         product_id: item.id,
-        qty: Number(item.num),
       };
-      console.log(addCart);
+      if (productPage === true) {
+        addCart.qty = Number(item.num);
+      } else {
+        addCart.qty = 1;
+      }
       this.$http
         .post(api, { data: addCart })
         .then((res) => {
+          console.log(res.data);
           if (res.data.success) {
             console.log(res.data);
             this.emitter.emit('pushMessage', {
@@ -19,6 +24,7 @@ export default {
               icon: '',
             });
           } else {
+            console.error(res.data.message);
             this.emitter.emit('pushMessage', {
               style: 'fail',
               content: '加入購物車失敗',

@@ -22,7 +22,8 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="title" class="form-label">
+            <label for="title" class="form-label inputTitle">
+              <font-awesome-icon icon="fa-solid fa-stroopwafel" />
               名稱
             </label>
             <Field
@@ -37,7 +38,8 @@
             <ErrorMessage name="名稱" class="inputNote"></ErrorMessage>
           </div>
           <div class="mb-3">
-            <label for="percent" class="form-label">
+            <label for="percent" class="form-label inputTitle">
+              <font-awesome-icon icon="fa-solid fa-stroopwafel" />
               折扣(%)
             </label>
             <Field
@@ -52,7 +54,8 @@
             <ErrorMessage name="折扣" class="inputNote"></ErrorMessage>
           </div>
           <div class="mb-3">
-            <label for="due_date" class="form-label">
+            <label for="due_date" class="form-label inputTitle">
+              <font-awesome-icon icon="fa-solid fa-stroopwafel" />
               到期日
             </label>
             <Field
@@ -69,7 +72,8 @@
             <ErrorMessage name="到期日" class="inputNote"></ErrorMessage>
           </div>
           <div class="mb-3">
-            <label for="code" class="form-label">
+            <label for="code" class="form-label inputTitle">
+              <font-awesome-icon icon="fa-solid fa-stroopwafel" />
               優惠序號
             </label>
             <Field
@@ -149,11 +153,13 @@ export default {
       if (this.couponData.is_enabled) {
         this.cupon = {
           ...this.couponData,
+          percent: 100 - this.couponData.percent,
           due_date: this.$filter.getDate(this.couponData.due_date),
         };
       } else {
         this.cupon = {
           ...this.couponData,
+          percent: 100 - this.couponData.percent,
           is_enabled: 0,
         };
       }

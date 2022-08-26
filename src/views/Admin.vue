@@ -15,25 +15,44 @@ export default {
   components: {
     ToastsList,
   },
+  inject: ['emitter'],
+  methods: {
+    checkAdmin() {
+      console.log('checkAdmin');
+      const hexToken = document.cookie.replace(
+        /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+        '$1',
+      );
+      this.$http.defaults.headers.common.Authorization = hexToken;
+      const api = `${process.env.VUE_APP_API}api/user/check`;
+      this.$http
+        .post(api)
+        .then((res) => {
+          if (!res.data.success) {
+            this.$router.push('/admin/login');
+            if (this.$route.path !== '/admin/login') {
+              this.emitter.emit('pushMessage', {
+                style: 'fail',
+                content: '請先進行登入',
+                icon: 'fa-solid fa-triangle-exclamation',
+              });
+            }
+          } else if (this.$route.path === '/admin/login') {
+            this.$router.push('/admin/products');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
   created() {
-    const hexToken = document.cookie.replace(
-      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-      '$1',
-    );
-    this.$http.defaults.headers.common.Authorization = hexToken;
-    const api = `${process.env.VUE_APP_API}api/user/check`;
-    this.$http
-      .post(api)
-      .then((res) => {
-        if (res.data.success) {
-          // this.$router.push('/admin/products');
-        } else {
-          this.$router.push('/admin/login');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.checkAdmin();
+  },
+  watch: {
+    $route() {
+      this.checkAdmin();
+    },
   },
 };
 </script>

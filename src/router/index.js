@@ -6,14 +6,11 @@ const routes = [
     component: () => import('../views/NotFound.vue'),
   },
   {
-    path: '/admin/:pathMatch(.*)*',
+    path: '/admin',
+    component: () => import('../views/Admin.vue'),
     redirect: {
       name: 'login',
     },
-  },
-  {
-    path: '/admin',
-    component: () => import('../views/Admin.vue'),
     children: [
       {
         path: '/admin/login',
@@ -44,7 +41,7 @@ const routes = [
         component: () => import('../views/userViews/Home.vue'),
       },
       {
-        path: '/menu',
+        path: '/menu/:category',
         name: 'menu',
         component: () => import('../views/userViews/Menu.vue'),
       },

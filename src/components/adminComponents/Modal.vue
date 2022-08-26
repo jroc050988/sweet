@@ -23,8 +23,12 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-4">
-              <p>主圖設定</p>
+              <p class="title inputTitle">
+                <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                主圖設定
+              </p>
               <img class="img-fluid mb-2" alt="" :src="product.imageUrl" />
+              <small class="red">尺寸建議: 600px*400px</small>
               <div class="mb-2">
                 <Field
                   type="text"
@@ -54,7 +58,10 @@
                   @change="imageUpload('imgUpload', 'customFile')"
                 />
               </div>
-              <p>更多圖片(上限十張)</p>
+              <p class="title inputTitle">
+                <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                更多圖片(上限十張)
+              </p>
               <div class="imgBox mb-2">
                 <div
                   class="imginner"
@@ -75,6 +82,7 @@
                   />
                 </div>
               </div>
+              <small class="red">尺寸建議: 600px*400px</small>
               <!-- 延伸技巧，多圖 -->
               <div class="mb-2" v-if="!imgsError">
                 <div class="input-group">
@@ -118,7 +126,10 @@
             </div>
             <div class="col-sm-8">
               <div class="mb-3">
-                <label for="title" class="form-label">標題</label>
+                <label for="title" class="form-label inputTitle">
+                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                  標題
+                </label>
                 <Field
                   name="標題"
                   type="text"
@@ -133,21 +144,30 @@
               </div>
               <div class="row gx-2">
                 <div class="mb-3 col-md-3">
-                  <label for="category" class="form-label">類別</label>
-                  <Field
-                    type="text"
-                    class="form-control"
-                    id="category"
-                    placeholder="請輸入分類"
-                    v-model="product.category"
+                  <label for="category" class="form-label inputTitle">
+                    <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                    類別
+                  </label>
+                  <select
                     name="類別"
-                    rules="required"
                     :class="{ 'is-invalid': errors['類別'] }"
-                  ></Field>
-                  <ErrorMessage name="類別" class="inputNote"></ErrorMessage>
+                    v-model="product.category"
+                    id="category"
+                    class="form-select"
+                  >
+                    <option selected value="派對蛋糕">派對蛋糕</option>
+                    <option value="小蛋糕">小蛋糕</option>
+                    <option value="鬆餅">鬆餅</option>
+                    <option value="麵包">麵包</option>
+                    <option value="其他甜品">其他甜品</option>
+                    <option value="各式飲品">各式飲品</option>
+                  </select>
                 </div>
                 <div class="mb-3 col-md-3">
-                  <label for="price" class="form-label">單位</label>
+                  <label for="price" class="form-label inputTitle">
+                    <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                    單位
+                  </label>
                   <Field
                     type="text"
                     class="form-control"
@@ -161,7 +181,10 @@
                   <ErrorMessage name="單位" class="inputNote"></ErrorMessage>
                 </div>
                 <div class="mb-3 col-md-3">
-                  <label for="origin_price" class="form-label">原價</label>
+                  <label for="origin_price" class="form-label inputTitle">
+                    <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                    原價
+                  </label>
                   <Field
                     type="number"
                     class="form-control"
@@ -175,7 +198,10 @@
                   <ErrorMessage name="原價" class="inputNote"></ErrorMessage>
                 </div>
                 <div class="mb-3 col-md-3">
-                  <label for="price" class="form-label">售價</label>
+                  <label for="price" class="form-label inputTitle">
+                    <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                    售價
+                  </label>
                   <Field
                     type="number"
                     class="form-control"
@@ -191,37 +217,40 @@
               </div>
               <hr />
               <div class="mb-3">
-                <label for="description" class="form-label">產品描述</label>
+                <label for="description" class="form-label inputTitle">
+                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                  甜品描述
+                </label>
                 <Field
                   as="textarea"
                   rows="6"
                   class="form-control"
                   id="description"
-                  placeholder="請輸入產品描述"
+                  placeholder="請輸入甜品描述"
                   v-model="product.description"
-                  name="產品描述"
+                  name="甜品描述"
                   rules="required|max:200"
-                  :class="{ 'is-invalid': errors['產品描述'] }"
+                  :class="{ 'is-invalid': errors['甜品描述'] }"
                 ></Field>
-                <ErrorMessage name="產品描述" class="inputNote"></ErrorMessage>
+                <ErrorMessage name="甜品描述" class="inputNote"></ErrorMessage>
               </div>
               <div class="mb-3">
-                <label for="content" class="form-label">說明內容</label>
+                <label for="content" class="form-label inputTitle">
+                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                  甜品資訊
+                </label>
                 <Field
                   as="textarea"
                   rows="6"
                   class="form-control"
                   id="content"
-                  placeholder="請輸入產品說明內容"
+                  placeholder="請輸入甜品資訊"
                   v-model="product.content"
-                  name="產品說明內容"
+                  name="甜品資訊"
                   rules="required|max:500"
-                  :class="{ 'is-invalid': errors['產品說明內容'] }"
+                  :class="{ 'is-invalid': errors['甜品資訊'] }"
                 ></Field>
-                <ErrorMessage
-                  name="產品說明內容"
-                  class="inputNote"
-                ></ErrorMessage>
+                <ErrorMessage name="甜品資訊" class="inputNote"></ErrorMessage>
               </div>
               <div class="mb-3">
                 <div class="form-check form-switch">
@@ -277,7 +306,9 @@ export default {
   inject: ['emitter'],
   data() {
     return {
-      product: {},
+      product: {
+        category: '小蛋糕',
+      },
       imgsInput: '',
       imgsError: false,
     };
@@ -330,14 +361,10 @@ export default {
         });
     },
     deleteImgs(index) {
-      // 出現錯誤;為啥????
       this.product.imagesUrl.splice(index, 1);
-      // const imageArry = [...this.product.imagesUrl];
-      // imageArry.splice(index, 1);
-      // this.product.imagesUrl = imageArry;
-      // if (this.product.imagesUrl.length < 10) {
-      //   this.imgsError = false;
-      // }
+      if (this.product.imagesUrl.length < 10) {
+        this.imgsError = false;
+      }
     },
     pushImg(img) {
       const imageArry = [...this.product.imagesUrl];
@@ -352,7 +379,7 @@ export default {
   },
   watch: {
     pdt() {
-      this.product = { ...this.pdt };
+      this.product = this.pdt;
       // 判斷資料中有無imagesUrl;沒有則建立imagesUrl空物件
       if (!this.product.imagesUrl) {
         this.product.imagesUrl = [];
@@ -360,6 +387,9 @@ export default {
       this.imgsError = false;
       if (this.product.imagesUrl && this.product.imagesUrl.length === 10) {
         this.imgsError = true;
+      }
+      if (!this.product.category) {
+        this.product.category = '派對蛋糕';
       }
     },
   },

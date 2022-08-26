@@ -4,28 +4,79 @@
       <div class="titleBox">
         <span class="titleEn">About Us</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>甜</span>
-          品目錄
+          <span>甜</span>品目錄
         </h2>
       </div>
       <ul class="nav nav-pills justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">慶生蛋糕</a>
+          <a
+            class="nav-link"
+            :class="{ active: category === 'all' }"
+            href="#"
+            @click.prevent="$router.push('/menu/all')"
+          >
+            ALL
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">小蛋糕</a>
+          <a
+            class="nav-link"
+            :class="{ active: category === '派對蛋糕' }"
+            @click.prevent="$router.push('/menu/派對蛋糕')"
+            href="#"
+          >
+            派對蛋糕
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">甜甜圈</a>
+          <a
+            class="nav-link"
+            :class="{ active: category === '小蛋糕' }"
+            href="#"
+            @click.prevent="$router.push('/menu/小蛋糕')"
+          >
+            小蛋糕
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">和菓子</a>
+          <a
+            class="nav-link"
+            :class="{ active: category === '鬆餅' }"
+            @click.prevent="$router.push('/menu/鬆餅')"
+            href="#"
+          >
+            鬆餅
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">其他甜品</a>
+          <a
+            class="nav-link"
+            :class="{ active: category === '麵包' }"
+            @click.prevent="$router.push('/menu/麵包')"
+            href="#"
+          >
+            麵包
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">各式飲品</a>
+          <a
+            class="nav-link"
+            :class="{ active: category === '其他甜品' }"
+            @click.prevent="$router.push('/menu/其他甜品')"
+            href="#"
+          >
+            其他甜品
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            :class="{ active: category === '各式飲品' }"
+            @click.prevent="$router.push('/menu/各式飲品')"
+            href="#"
+          >
+            各式飲品
+          </a>
         </li>
       </ul>
       <ul class="productsList">
@@ -50,32 +101,47 @@
                   {{ item.title }}
                 </a>
               </h3>
-              <div class="btnBox mt-auto">
-                <p class="price">¥ {{ item.price }}</p>
-                <button
-                  v-if="(favoriteArry.filter(i => i.id === item.id).length)"
-                  type="button"
-                  class="btn btn-outline-primary mr-2 border-end-0"
-                  @click="addFavorite('remove', item)"
+              <div class="d-flex justify-content-between mt-auto">
+                <div
+                  class="priceBox discount"
+                  v-if="item.origin_price !== item.price"
                 >
-                  <font-awesome-icon icon="fa-solid fa-heart" />
-                </button>
-                <button
-                  v-else
-                  type="button"
-                  class="btn btn-outline-primary mr-2 border-end-0"
-                  @click="addFavorite('add', item)"
-                >
-                  <font-awesome-icon icon="fa-regular fa-heart" />
-                </button>
-                <button
-                  type="button"
-                  title="查看更多"
-                  class="btn btn-outline-primary"
-                  @click="addCart(item)"
-                >
-                  加入購物車
-                </button>
+                  <div class="d-flex flex-column flex-start align-items-start">
+                    <p class="origin_price">$ {{ item.origin_price }}</p>
+                    <p class="price red">$ {{ item.price }}</p>
+                  </div>
+                  <p class="unit">/ {{ item.unit }}</p>
+                </div>
+                <div class="priceBox mr-auto" v-else>
+                  <p class="price">$ {{ item.price }}</p>
+                  <p class="unit">/ {{ item.unit }}</p>
+                </div>
+                <div class="btnBox mt-auto">
+                  <button
+                    v-if="(favoriteArry.filter(i => i.id === item.id).length)"
+                    type="button"
+                    class="btn btn-outline-primary mr-2 border-end-0"
+                    @click="addFavorite('remove', item)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-heart" />
+                  </button>
+                  <button
+                    v-else
+                    type="button"
+                    class="btn btn-outline-primary mr-2 border-end-0"
+                    @click="addFavorite('add', item)"
+                  >
+                    <font-awesome-icon icon="fa-regular fa-heart" />
+                  </button>
+                  <button
+                    type="button"
+                    title="查看更多"
+                    class="btn btn-outline-primary"
+                    @click="addCart(item)"
+                  >
+                    加入購物車
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -102,6 +168,7 @@ export default {
       productList: [],
       page: {},
       favoriteArry: [],
+      category: '',
     };
   },
   components: {
@@ -111,20 +178,47 @@ export default {
   methods: {
     getProducts() {
       this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/?page=${this.page.current_page}`;
+      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products?page=${this.page.current_page}`;
+      if (this.category !== 'all') {
+        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
+      }
       this.$http
         .get(api)
         .then((res) => {
           if (res.data.success) {
-            this.productList = res.data.products;
-            this.page = res.data.pagination;
+            if (this.category !== 'all') {
+              const categoryAll = [];
+              this.productList = [];
+              Object.values(res.data.products).forEach((item) => {
+                if (item.category === this.category) {
+                  categoryAll.push(item);
+                  this.page = {
+                    ...this.page,
+                    total_pages: Math.ceil(categoryAll.length / 10),
+                  };
+                  this.page.has_pre = this.page.current_page !== 1;
+                  this.page.has_next = this.page.current_page !== this.page.total_pages;
+                }
+              });
+              categoryAll.forEach((i, index) => {
+                if (
+                  index >= (this.page.current_page - 1) * 10
+                  && index < this.page.current_page * 10
+                ) {
+                  this.productList.push(i);
+                }
+              });
+            } else {
+              this.page = res.data.pagination;
+              this.productList = res.data.products;
+            }
           } else {
             console.error('列表取得失敗');
           }
           this.isLoading = false;
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.isLoading = false;
         });
       if (localStorage.getItem('favorite')) {
@@ -140,8 +234,22 @@ export default {
     },
   },
   mounted() {
+    this.category = this.$route.params.category;
+    this.page = {
+      current_page: 1,
+    };
     this.getProducts();
     this.$emit('unit', 'menu');
+  },
+  watch: {
+    $route() {
+      this.productList = [];
+      this.category = this.$route.params.category;
+      this.page = {
+        current_page: 1,
+      };
+      this.getProducts();
+    },
   },
 };
 </script>

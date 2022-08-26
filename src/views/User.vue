@@ -43,7 +43,7 @@
             <li class="nav-item">
               <router-link
                 class="nav-link user"
-                to="/menu"
+                to="/menu/all"
                 :class="{ active: CurrentUnit === 'menu' }"
               >
                 <span class="nav-icon">

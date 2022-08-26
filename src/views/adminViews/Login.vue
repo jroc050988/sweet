@@ -2,7 +2,7 @@
   <div class="container-fluid adminBg">
     <div class="adminInner">
       <div class="loginBox">
-        <form class="justify-content-center w-100">
+        <form class="justify-content-center w-100"  @submit="login()">
           <h1 class="h3 mb-4 font-weight-normal text-center">管理者登入</h1>
           <div class="mb-3 inputBox">
             <label for="inputEmail" class="mb-2">電子信箱</label>
@@ -35,7 +35,6 @@
             <button
               class="btn btn-primary btn-block"
               type="submit"
-              @click.prevent="login()"
             >
               登入
             </button>

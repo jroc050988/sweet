@@ -2,7 +2,7 @@
   <!-- Modal -->
   <div class="modal fade orderModal" tabindex="-1" ref="modal">
     <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content border-0">
+      <form class="modal-content border-0" @submit="onSubmit">
         <div class="modal-header">
           <p class="modalTitle">
             <span>訂單編號: {{ data.id }}</span>
@@ -18,51 +18,51 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-3">
-                <label for="name" class="form-label">
+                <label for="name" class="form-label inputTitle">
+                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
                   訂購人姓名
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   id="name"
-                  readonly
-                  :value="data.user.name"
+                  v-model="order.user.name"
                 />
               </div>
               <div class="mb-3">
-                <label for="email" class="form-label">
+                <label for="email" class="form-label inputTitle">
+                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
                   聯絡電子信箱
                 </label>
                 <input
                   type="email"
                   class="form-control"
                   id="email"
-                  readonly
-                  :value="data.user.email"
+                  v-model="order.user.email"
                 />
               </div>
               <div class="mb-3">
-                <label for="tel" class="form-label">
+                <label for="tel" class="form-label inputTitle">
+                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
                   聯絡電話
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   id="tel"
-                  readonly
-                  :value="data.user.tel"
+                  v-model="order.user.tel"
                 />
               </div>
               <div class="mb-3">
-                <label for="add" class="form-label">
+                <label for="add" class="form-label inputTitle">
+                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
                   收件地址
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   id="add"
-                  readonly
-                  :value="data.user.address"
+                  v-model="order.user.address"
                 />
               </div>
             </div>
@@ -72,28 +72,45 @@
                   <thead>
                     <tr class="orderTitle">
                       <td>名稱</td>
-                      <td width="120">原價</td>
-                      <td width="120">售價</td>
+                      <td width="80">原價</td>
+                      <td width="80">售價</td>
                       <td width="60">數量</td>
-                      <td width="120">小計</td>
-                      <td width="120" v-if="coupon">折扣後</td>
+                      <td width="80">小計</td>
+                      <td width="80" v-if="coupon">折扣後</td>
+                      <td width="80">刪除</td>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(pdt, index) in data.products" :key="index">
-                      <td>{{ pdt.product.title }}</td>
-                      <td>{{ pdt.product.origin_price }}</td>
-                      <td>{{ pdt.product.price }}</td>
-                      <td>{{ pdt.qty }}</td>
+                    <tr v-for="(item, index) in products" :key="index">
+                      <td>{{ item.product.title }}</td>
+                      <td>{{ item.product.origin_price }}</td>
+                      <td>{{ item.product.price }}</td>
                       <td>
-                        {{ pdt.total }}
+                        <input
+                          type="number"
+                          v-model="item.qty"
+                          @change="updataItem(item)"
+                        />
+                      </td>
+                      <td>
+                        {{ item.total }}
                       </td>
                       <td v-if="coupon">
-                        {{ pdt.final_total }}
+                        {{ item.final_total }}
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          title="刪除"
+                          class="d-block"
+                          @click.prevent="deleteItem(item)"
+                        >
+                          <font-awesome-icon icon="fa-solid fa-trash-can" />
+                        </a>
                       </td>
                     </tr>
                     <tr v-if="coupon">
-                      <td colspan="6" class="text-left">
+                      <td colspan="7" class="text-left">
                         <font-awesome-icon icon="fa-solid fa-circle-check" />
                         已套用{{ coupon.title }}優惠券"{{
                           coupon.code
@@ -106,30 +123,37 @@
               <div class="orderTotal">
                 <div class="orderItem">
                   <p class="title">總價</p>
-                  <p>¥ {{ origin_total }}</p>
+                  <p>$ {{ origin_total }}</p>
                 </div>
                 <div class="orderItem red" v-if="coupon">
                   <p class="title">折扣</p>
-                  <p>– ¥ {{ discount }}</p>
+                  <p>– $ {{ discount }}</p>
                 </div>
                 <div class="orderItem">
                   <p class="title">運費</p>
-                  <p>¥ {{ fare }}</p>
+                  <p>$ {{ fare }}</p>
                 </div>
                 <div class="orderItem">
                   <p class="title">結算</p>
-                  <p>¥ {{ finalTotal }}</p>
+                  <p>$ {{ finalTotal }}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            data-bs-dismiss="modal"
+          >
+            取消
+          </button>
+          <button class="btn btn-primary">
             確定
           </button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -140,33 +164,78 @@ import modal from '@/mixins/bsmodal';
 export default {
   data() {
     return {
-      origin_total: 0,
+      order: {},
       coupon: {},
+      products: [],
+      origin_total: 0,
+      fare: 0,
+      finalTotal: 0,
+      discount: 0,
     };
   },
   mixins: [modal],
-  props: ['data'],
+  props: {
+    data: {
+      type: Object,
+      defalut() {
+        return {};
+      },
+    },
+  },
   watch: {
     data() {
       this.origin_total = 0;
-      Object.values(this.data.products).forEach((i) => {
-        this.origin_total += i.total;
+      this.order = this.data;
+      this.products = Object.values(this.data.products);
+      Object.values(this.order.products).forEach((i) => {
         this.coupon = i.coupon;
       });
+      this.count();
     },
   },
-  computed: {
-    fare() {
-      if (this.origin_total < 3000) {
-        return 150;
+  methods: {
+    updataItem(item) {
+      this.products.forEach((i, index) => {
+        if (i.id === item.id) {
+          this.products[index].total = item.qty * item.product.price;
+          if (this.coupon) {
+            this.products[index].final_total = this.products[index].total
+            * (item.coupon.percent / 100);
+          }
+        }
+      });
+      this.count();
+    },
+    deleteItem(item) {
+      this.products.forEach((i, index) => {
+        if (i.id === item.id) {
+          this.products.splice(index, 1);
+          this.order.products = this.products;
+        }
+      });
+      this.count();
+    },
+    count() {
+      this.origin_total = 0;
+      this.finalTotal = 0;
+      this.products.forEach((i) => {
+        this.origin_total += i.total;
+      });
+      this.fare = this.origin_total > 3000 ? 0 : 150;
+      if (!this.coupon) {
+        this.finalTotal = this.origin_total + this.fare;
+      } else {
+        this.products.forEach((i) => {
+          this.finalTotal += i.final_total;
+        });
+        this.finalTotal += this.fare;
+        this.discount = this.origin_total + this.fare - this.finalTotal;
       }
-      return 0;
     },
-    finalTotal() {
-      return this.data.total + this.fare;
-    },
-    discount() {
-      return (this.origin_total + this.fare) - this.finalTotal;
+    onSubmit() {
+      this.$emit('updata', this.order);
+      console.log(this.order);
+      console.log(this.products);
     },
   },
 };

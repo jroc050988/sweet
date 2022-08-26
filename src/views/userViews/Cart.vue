@@ -5,8 +5,7 @@
         <div class="titleBox">
           <span class="titleEn">Cart</span>
           <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-            <span>購</span>
-            物清單
+            <span>購</span>物清單
           </h2>
         </div>
         <div class="btnBox mt-2">
@@ -49,7 +48,7 @@
             >
               <p>{{ item.product.title }}</p>
             </a>
-            <p class="pdtPrice">¥ {{ item.product.price }}</p>
+            <p class="pdtPrice">$ {{ item.product.price }}</p>
             <div class="btnBox">
               <button
                 type="button"
@@ -63,6 +62,7 @@
                 class="numInput"
                 min="1"
                 v-model="item.qty"
+                @change="numPlus(item, item.qty)"
               />
               <button
                 type="button"
@@ -72,7 +72,7 @@
                 <font-awesome-icon icon="fa-solid fa-plus" />
               </button>
             </div>
-            <p class="pdtTotal">¥ {{ item.total }}</p>
+            <p class="pdtTotal">$ {{ item.total }}</p>
             <a
               href="#"
               title="刪除"
@@ -114,18 +114,18 @@
           </small>
           <div class="cartTotalItem mt-2">
             <p class="title">總價</p>
-            <p>¥ {{ total }}</p>
+            <p>$ {{ total }}</p>
           </div>
           <div
             class="cartTotalItem mt-2 red"
             v-if="coupon && Object.keys(coupon).length !== 0"
           >
             <p class="title">折扣</p>
-            <p>- ¥ {{ discount }}</p>
+            <p>- $ {{ discount }}</p>
           </div>
           <div class="cartTotalItem mt-2">
             <p class="title">運費</p>
-            <p>¥ {{ fare }}</p>
+            <p>$ {{ fare }}</p>
           </div>
           <small class="note-fail" v-if="this.total < 3000">
             <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
@@ -134,7 +134,7 @@
           <hr />
           <div class="cartTotalItem">
             <p class="title">結算</p>
-            <p>¥ {{ finalTotal }}</p>
+            <p>$ {{ finalTotal }}</p>
           </div>
           <div class="btnBox nextStep">
             <button
