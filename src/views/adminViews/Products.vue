@@ -71,10 +71,10 @@
               </td>
               <td class="title">{{ item.title }}</td>
               <td>
-                {{ item.origin_price }}
+                {{ $filter.currency(item.origin_price) }}
               </td>
               <td>
-                {{ item.price }}
+                {{ $filter.currency(item.price) }}
               </td>
               <td>
                 <span class="text-success">
@@ -170,12 +170,14 @@ export default {
         });
     },
     openModal(isNew, item) {
+      this.tempProduct = {};
       this.$refs.modal.showModal();
       this.tempProduct = JSON.parse(JSON.stringify(item));
       this.isNew = isNew;
       console.log(this.productList, 'productList');
     },
     openDelModal(item) {
+      this.tempProduct = {};
       this.$refs.delModal.showModal();
       this.tempProduct = { ...item };
     },

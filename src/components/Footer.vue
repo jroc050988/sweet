@@ -38,17 +38,32 @@
         </div>
         <ul class="footer-social">
           <li>
-            <a href="" title="" class="socialLink">
+            <a
+              href="https://www.facebook.com/"
+              title="facebook"
+              target="_blank"
+              class="socialLink"
+            >
               <font-awesome-icon icon="fa-brands fa-facebook" />
             </a>
           </li>
           <li>
-            <a href="" title="" class="socialLink">
+            <a
+              href="https://twitter.com/"
+              title="twitter"
+              target="_blank"
+              class="socialLink"
+            >
               <font-awesome-icon icon="fa-brands fa-twitter" />
             </a>
           </li>
           <li>
-            <a href="" title="" class="socialLink">
+            <a
+              href="https://www.instagram.com/"
+              title="instagram"
+              target="_blank"
+              class="socialLink"
+            >
               <font-awesome-icon icon="fa-brands fa-instagram" />
             </a>
           </li>
@@ -59,38 +74,66 @@
               <font-awesome-icon icon="fa-solid fa-location-dot" />
               Add.
             </span>
-            <a href="" title="">台北市大安區忠孝東路四段45號</a>
+            <a
+              href="https://goo.gl/maps/1bNqKHVcYohJ2RaRA"
+              title="地址"
+              target="_blank"
+            >
+              台北市大安區忠孝東路四段45號
+            </a>
           </li>
           <li>
             <span>
               <font-awesome-icon icon="fa-solid fa-envelope" />
               Mail
             </span>
-            <a href="" title="">service@alittlesweet.com.tw</a>
+            <a href="mailto:service@alittlesweet.com.tw" title="mail">
+              service@alittlesweet.com.tw
+            </a>
           </li>
           <li>
             <span>
               <font-awesome-icon icon="fa-solid fa-phone" />
               Tel.
             </span>
-            <a href="" title="">02-2563-3599</a>
+            <a href="tel:02-2563-3599" title="">02-2563-3599</a>
           </li>
           <li>
             <span>
               <font-awesome-icon icon="fa-solid fa-fax" />
               Fax.
             </span>
-            <a href="" title="">02-2563-3599</a>
+            <a href="tel:02-2563-3599" title="">02-2563-3599</a>
           </li>
         </ul>
       </div>
       <div class="footer-navBox">
         <ul class="footer-nav">
-          <li><a href="" title="" class="navLink">關於我們</a></li>
-          <li><a href="" title="" class="navLink">甜品目錄</a></li>
-          <li><a href="" title="" class="navLink">我要訂購</a></li>
-          <li><a href="" title="" class="navLink">訂單查詢</a></li>
-          <li><a href="" title="" class="navLink">聯絡我們</a></li>
+          <li>
+            <router-link to="/menu/all" title="甜品目錄" class="navLink">
+              甜品目錄
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/favorite" title="我的最愛" class="navLink">
+              我的最愛
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/cart" title="購物清單" class="navLink">
+              購物清單
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/order" title="訂單查詢" class="navLink">
+              訂單查詢
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/contact" title="聯絡我們" class="navLink">
+              聯絡我們
+            </router-link>
+          </li>
         </ul>
         <iframe
           class="mx-auto my-1"

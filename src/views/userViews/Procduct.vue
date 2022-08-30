@@ -41,15 +41,20 @@
         </div>
         <div class="infoBox">
           <h2 class="title">{{ product.title }}</h2>
-          <div class="priceBox discount" v-if="product.origin_price !== product.price">
+          <div
+            class="priceBox discount"
+            v-if="product.origin_price !== product.price"
+          >
             <div class="d-flex flex-column flex-start align-items-start">
-              <p class="origin_price">$ {{ product.origin_price }}</p>
-              <p class="price red">$ {{ product.price }}</p>
+              <p class="origin_price">
+                $ {{ $filter.currency(product.origin_price) }}
+              </p>
+              <p class="price red">$ {{ $filter.currency(product.price) }}</p>
             </div>
             <p class="unit">/ {{ product.unit }}</p>
           </div>
           <div class="priceBox" v-else>
-            <p class="price">$ {{ product.price }}</p>
+            <p class="price">$ {{ $filter.currency(product.price) }}</p>
             <p class="unit">/ {{ product.unit }}</p>
           </div>
           <p>
@@ -152,10 +157,7 @@
                 type="button"
                 title="立即購買"
                 class="btn btn-primary buyBtn"
-                @click="
-                  addCart(product, true);
-                  $router.push('/cart')
-                "
+                @click="addCart(product, true, true)"
               >
                 立即購買
               </button>
@@ -167,7 +169,8 @@
         <div class="titleBox">
           <span class="titleEn">Recommend</span>
           <h3 class="title wow fadeInUp" data-wow-delay="250ms">
-            <span>更</span>多甜品
+            <span>更</span>
+            多甜品
           </h3>
         </div>
         <swiper
@@ -198,19 +201,45 @@
                   {{ item.title }}
                 </a>
               </h3>
+
+              <div
+                class="priceBox discount"
+                v-if="item.origin_price !== item.price"
+              >
+                <div class="discountBox">
+                  <p class="origin_price">
+                    $ {{ $filter.currency(item.origin_price) }}
+                  </p>
+                  <p class="price red">$ {{ $filter.currency(item.price) }}</p>
+                </div>
+                <p class="unit">/ {{ item.unit }}</p>
+              </div>
+              <div class="priceBox mr-auto" v-else>
+                <p class="price">$ {{ $filter.currency(item.price) }}</p>
+                <p class="unit">/ {{ item.unit }}</p>
+              </div>
               <div class="btnBox mt-auto">
-                <p class="price">$ {{ item.price }}</p>
                 <button
+                  v-if="(favoriteArry.filter(i => i.id === item.id).length)"
                   type="button"
                   class="btn btn-outline-primary mr-2 border-end-0"
+                  @click="addFavorite('remove', item)"
+                >
+                  <font-awesome-icon icon="fa-solid fa-heart" />
+                </button>
+                <button
+                  v-else
+                  type="button"
+                  class="btn btn-outline-primary mr-2 border-end-0"
+                  @click="addFavorite('add', item)"
                 >
                   <font-awesome-icon icon="fa-regular fa-heart" />
-                  <!-- <font-awesome-icon icon="fa-solid fa-heart" /> -->
                 </button>
                 <button
                   type="button"
                   title="查看更多"
                   class="btn btn-outline-primary"
+                  @click="addCart(item)"
                 >
                   加入購物車
                 </button>
@@ -221,9 +250,12 @@
       </div>
     </div>
   </div>
+  <Loading :isShow="isLoading"></Loading>
 </template>
 
 <script>
+import Loading from '@/components/Loading.vue';
+
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
 
@@ -256,6 +288,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    Loading,
   },
   methods: {
     setThumbsSwiper(swiper) {
@@ -301,7 +334,10 @@ export default {
             const arry = Object.values(res.data.products);
             console.log(this.product);
             arry.forEach((i) => {
-              if (i.category === this.product.category && i.id !== this.product.id) {
+              if (
+                i.category === this.product.category
+                && i.id !== this.product.id
+              ) {
                 this.susumeArry.push(i);
               }
             });

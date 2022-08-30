@@ -1,10 +1,10 @@
-header.user{
+header.user {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 99;
-  &::before{
-    content: "";
+  &::before {
+    content: '';
     position: absolute;
     width: 100%;
     height: 4px;
@@ -13,17 +13,40 @@ header.user{
     left: 0;
   }
 }
-.navbar.user{
+.navbar.user {
   margin-top: 1.5rem;
-  .navbar-collapse{
+  .navbar-toggler{
+    border: none;
+    color: $red;
+    font-size: 2rem;
+  }
+  .navbar-collapse {
     justify-content: flex-end;
-    .navbar-nav{
+    @include lg {
+      position: absolute;
+      right: 0;
+      top: -1.5rem;
+      width: 100%;
+      max-width: 300px;
+      height: 100vh;
+      transition: all .3s ease;
+      transform: translateX(100%);
+      &.show{
+        transform: translateX(0);
+      }
+    }
+    .navbar-nav {
       box-shadow: 0px 8px 8px rgba(51, 51, 51, 0.199);
       border-radius: 5rem;
       padding: 0 1.5rem;
       background-color: #fee4e9;
       position: relative;
-      .circle{
+      @include lg {
+        border-radius: 0;
+        height: 100%;
+        padding-top: 50px;
+      }
+      .circle {
         background: $red;
         width: 40px;
         height: 40px;
@@ -32,100 +55,157 @@ header.user{
         transform: translateY(-50%);
         border-radius: 50%;
         border: 3px solid $white;
-        transition: all .3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        @include lg {
+          display: none;
+        }
+      }
+    }
+    .closeBtn{
+      display: none;
+      @include lg{
+        position: absolute;
+        display: block;
+        right: .5rem;
+        top: .5rem;
+        z-index: 1;
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
       }
     }
   }
-  .navbar-brand{
+  .navbar-brand {
     font-size: 2rem;
     color: $red;
-    img{
+    img {
       max-width: 50px;
     }
   }
 }
-.nav-link.user{
+.nav-link.user {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding: 1rem .5rem;
+  padding: 1rem 0.5rem;
   align-items: center;
   overflow: hidden;
   min-width: 82px;
   min-height: 100%;
-  .nav-icon{
-    position:absolute;
+  @include lg {
+    flex-direction: row;
+  }
+  .nav-icon {
+    position: absolute;
     top: -2px;
     left: 50%;
-    transform: translate(-50%,-25%);
+    transform: translate(-50%, -25%);
     opacity: 0;
-    transition: all .3s ease-in-out;
-    svg{
+    transition: all 0.3s ease-in-out;
+    @include lg {
+      position: relative;
+      transform: translate(0, 0);
+      opacity: 1;
+      width: 18px;
+      top: 0;
+      left: 0;
+      margin-right: 0.5rem;
+    }
+    svg {
       color: $white;
+      @include lg {
+        color: $black;
+      }
     }
   }
-  .nav-text{
-    transition: all .3s linear;
+  .nav-text {
+    transition: all 0.3s linear;
     color: $black;
   }
-  .nav-textEn{
+  .nav-textEn {
     position: absolute;
     bottom: 0;
     transform: translateY(1rem);
     opacity: 0;
     font-family: $font-family-en;
     font-size: 1.15rem;
+    @include lg {
+      transform: translate(26px, 1rem);
+    }
   }
-  &:hover{
-    .nav-text{
+  &:hover {
+    .nav-text {
       transform: translateY(-150%);
       opacity: 0;
       color: $black;
     }
-    .nav-textEn{
-      transform: translateY(-.75rem);
+    .nav-textEn {
+      transform: translateY(-0.75rem);
       opacity: 1;
       color: $red;
-      transition: all .3s linear;
+      transition: all 0.3s linear;
+      @include lg {
+        transform: translate(26px, -0.75rem);
+      }
+    }
+    .nav-icon {
+      svg {
+        transition: all .3s ease-out;
+        @include lg {
+          color: $red;
+        }
+      }
     }
   }
-  &.active{
+  &.active {
     overflow: inherit;
-    .nav-icon{
+    .nav-icon {
       opacity: 1;
       z-index: 1;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
+      @include lg {
+        transform: translate(0, 0);
+        svg {
+          color: $red;
+        }
+      }
     }
-    .nav-textEn{
-      transform: translateY(-.75rem);
+    .nav-textEn {
+      transform: translateY(-0.75rem);
       bottom: 0;
       opacity: 1;
       color: $red;
+      @include lg {
+        transform: translate(26px, -0.75rem);
+      }
     }
-    .nav-text{
+    .nav-text {
       opacity: 0;
+      @include lg {
+        display: none;
+      }
     }
   }
 }
-.circle.home{
+.circle.home {
   left: 45px;
 }
 // .circle.about{
 //   left: 127px;
 // }
-.circle.menu{
+.circle.menu {
   left: 127px;
 }
-.circle.favorite{
+.circle.favorite {
   left: 209px;
 }
-.circle.cart{
+.circle.cart {
   left: 291px;
 }
-.circle.order{
+.circle.order {
   left: 372px;
 }
-.circle.contact{
+.circle.contact {
   left: 455px;
 }

@@ -4,7 +4,8 @@
       <div class="titleBox">
         <span class="titleEn">About Us</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>甜</span>品目錄
+          <span>甜</span>
+          品目錄
         </h2>
       </div>
       <ul class="nav nav-pills justify-content-center">
@@ -101,47 +102,49 @@
                   {{ item.title }}
                 </a>
               </h3>
-              <div class="d-flex justify-content-between mt-auto">
-                <div
-                  class="priceBox discount"
-                  v-if="item.origin_price !== item.price"
+              <div
+                class="priceBox discount"
+                v-if="item.origin_price !== item.price"
+              >
+                <div class="discountBox">
+                  <p class="origin_price">
+                    $ {{ $filter.currency(item.origin_price) }}
+                  </p>
+                  <p class="price red">
+                    $ {{ $filter.currency(item.price) }}
+                  </p>
+                </div>
+                <p class="unit">/ {{ item.unit }}</p>
+              </div>
+              <div class="priceBox mr-auto" v-else>
+                <p class="price">$ {{ $filter.currency(item.price) }}</p>
+                <p class="unit">/ {{ item.unit }}</p>
+              </div>
+              <div class="btnBox mt-auto">
+                <button
+                  v-if="(favoriteArry.filter(i => i.id === item.id).length)"
+                  type="button"
+                  class="btn btn-outline-primary mr-2 border-end-0"
+                  @click="addFavorite('remove', item)"
                 >
-                  <div class="d-flex flex-column flex-start align-items-start">
-                    <p class="origin_price">$ {{ item.origin_price }}</p>
-                    <p class="price red">$ {{ item.price }}</p>
-                  </div>
-                  <p class="unit">/ {{ item.unit }}</p>
-                </div>
-                <div class="priceBox mr-auto" v-else>
-                  <p class="price">$ {{ item.price }}</p>
-                  <p class="unit">/ {{ item.unit }}</p>
-                </div>
-                <div class="btnBox mt-auto">
-                  <button
-                    v-if="(favoriteArry.filter(i => i.id === item.id).length)"
-                    type="button"
-                    class="btn btn-outline-primary mr-2 border-end-0"
-                    @click="addFavorite('remove', item)"
-                  >
-                    <font-awesome-icon icon="fa-solid fa-heart" />
-                  </button>
-                  <button
-                    v-else
-                    type="button"
-                    class="btn btn-outline-primary mr-2 border-end-0"
-                    @click="addFavorite('add', item)"
-                  >
-                    <font-awesome-icon icon="fa-regular fa-heart" />
-                  </button>
-                  <button
-                    type="button"
-                    title="查看更多"
-                    class="btn btn-outline-primary"
-                    @click="addCart(item)"
-                  >
-                    加入購物車
-                  </button>
-                </div>
+                  <font-awesome-icon icon="fa-solid fa-heart" />
+                </button>
+                <button
+                  v-else
+                  type="button"
+                  class="btn btn-outline-primary mr-2 border-end-0"
+                  @click="addFavorite('add', item)"
+                >
+                  <font-awesome-icon icon="fa-regular fa-heart" />
+                </button>
+                <button
+                  type="button"
+                  title="查看更多"
+                  class="btn btn-outline-primary"
+                  @click="addCart(item)"
+                >
+                  加入購物車
+                </button>
               </div>
             </div>
           </div>

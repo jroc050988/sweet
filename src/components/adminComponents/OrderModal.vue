@@ -83,8 +83,8 @@
                   <tbody>
                     <tr v-for="(item, index) in products" :key="index">
                       <td>{{ item.product.title }}</td>
-                      <td>{{ item.product.origin_price }}</td>
-                      <td>{{ item.product.price }}</td>
+                      <td>{{ $filter.currency(item.product.origin_price) }}</td>
+                      <td>{{ $filter.currency(item.product.price) }}</td>
                       <td>
                         <input
                           type="number"
@@ -93,10 +93,10 @@
                         />
                       </td>
                       <td>
-                        {{ item.total }}
+                        {{ $filter.currency(item.total) }}
                       </td>
                       <td v-if="coupon">
-                        {{ item.final_total }}
+                        {{ $filter.currency(item.final_total) }}
                       </td>
                       <td>
                         <a
@@ -123,11 +123,11 @@
               <div class="orderTotal">
                 <div class="orderItem">
                   <p class="title">總價</p>
-                  <p>$ {{ origin_total }}</p>
+                  <p>$ {{ $filter.currency(origin_total) }}</p>
                 </div>
                 <div class="orderItem red" v-if="coupon">
                   <p class="title">折扣</p>
-                  <p>– $ {{ discount }}</p>
+                  <p>– $ {{ $filter.currency(discount) }}</p>
                 </div>
                 <div class="orderItem">
                   <p class="title">運費</p>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="orderItem">
                   <p class="title">結算</p>
-                  <p>$ {{ finalTotal }}</p>
+                  <p>$ {{ $filter.currency(finalTotal) }}</p>
                 </div>
               </div>
             </div>

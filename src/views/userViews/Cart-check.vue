@@ -1,6 +1,7 @@
 <template>
   <div class="pageInner cartPage cartCheckPage">
-    <Form class="container" v-slot="{ errors }" @submit="createOrder">
+    <div class="container">
+    <Form class="cartInner" v-slot="{ errors }" @submit="createOrder">
       <div class="cartListBox">
         <div class="titleBox">
           <span class="titleEn">Check</span>
@@ -125,8 +126,8 @@
               <tr v-for="(item, index) in cartList" :key="index">
                 <td>{{ item.product.title }}</td>
                 <td>{{ item.qty }}</td>
-                <td>{{ item.product.price }}</td>
-                <td>{{ item.total }}</td>
+                <td>{{ $filter.currency(item.product.price) }}</td>
+                <td>{{ $filter.currency(item.total) }}</td>
               </tr>
             </tbody>
           </table>
@@ -140,11 +141,11 @@
         </small>
         <div class="cartTotalItem mt-2">
           <p class="title">總價</p>
-          <p>$ {{ total }}</p>
+          <p>$ {{ $filter.currency(total) }}</p>
         </div>
         <div class="cartTotalItem mt-2 red" v-if="coupon && Object.keys(coupon).length !== 0">
           <p class="title">折扣</p>
-          <p>- $ {{ discount }}</p>
+          <p>- $ {{ $filter.currency(discount) }}</p>
         </div>
         <div class="cartTotalItem mt-2">
           <p class="title">運費</p>
@@ -153,7 +154,7 @@
         <hr />
         <div class="cartTotalItem">
           <p class="title">結算</p>
-          <p>$ {{ finalTotal }}</p>
+          <p>$ {{ $filter.currency(finalTotal) }}</p>
         </div>
         <div class="btnBox nextStep">
           <button
@@ -169,6 +170,7 @@
         </div>
       </div>
     </Form>
+    </div>
   </div>
   <Loading :isShow="isLoading"></Loading>
 </template>

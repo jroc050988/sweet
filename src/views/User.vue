@@ -20,10 +20,22 @@
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          @click="openNav"
         >
-          <span class="navbar-toggler-icon"></span>
+          <font-awesome-icon icon="fa-solid fa-bars" />
         </button>
-        <div class="collapse navbar-collapse ml-auto" id="navbarNav">
+        <div
+          class="collapse navbar-collapse ml-auto"
+          id="navbarNav"
+          :class="{ show: isOpen }"
+        >
+          <button
+            class="closeBtn btn btn-primary"
+            type="button"
+            @click="openNav"
+          >
+            <font-awesome-icon icon="fa-solid fa-x" />
+          </button>
           <ul class="navbar-nav">
             <li class="nav-item">
               <router-link
@@ -56,10 +68,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link
-                to="/favorite"
-                class="nav-link user"
-              >
+              <router-link to="/favorite" class="nav-link user">
                 <span class="nav-icon">
                   <font-awesome-icon icon="fa-solid fa-heart" />
                 </span>
@@ -85,10 +94,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link
-                to="/order"
-                class="nav-link user"
-              >
+              <router-link to="/order" class="nav-link user">
                 <span class="nav-icon">
                   <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                 </span>
@@ -99,10 +105,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link
-                to="/contact"
-                class="nav-link user"
-              >
+              <router-link to="/contact" class="nav-link user">
                 <span class="nav-icon">
                   <font-awesome-icon icon="fa-solid fa-comment-dots" />
                 </span>
@@ -130,6 +133,7 @@ import ToastsList from '@/components/ToastsList.vue';
 export default {
   data() {
     return {
+      isOpen: false,
       CurrentUnit: '',
     };
   },
@@ -138,9 +142,17 @@ export default {
     ToastsList,
   },
   methods: {
+    openNav() {
+      this.isOpen = !this.isOpen;
+    },
     changeUnit(data) {
       this.CurrentUnit = data;
       console.log(data);
+    },
+  },
+  watch: {
+    $route() {
+      this.isOpen = false;
     },
   },
 };

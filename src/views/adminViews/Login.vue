@@ -51,8 +51,8 @@ export default {
   data() {
     return {
       user: {
-        username: 'lilitest@gmail.com',
-        password: 'lilitest',
+        username: '',
+        password: '',
       },
       isShow: true,
     };

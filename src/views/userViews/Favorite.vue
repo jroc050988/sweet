@@ -4,54 +4,88 @@
       <div class="titleBox">
         <span class="titleEn">Favorite</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>我</span>的最愛
+          <span>我</span>
+          的最愛
         </h2>
       </div>
-      <div class="cartListTitle">
-        <p style="width: 20%;">圖片</p>
-        <p style="width: 40%;">品名</p>
-        <p style="width: 20%;">單價</p>
-        <p style="width: 10%;">加入購物車</p>
-        <p style="width: 10%;">刪除</p>
+      <div
+        class="notFoundBox text-center mt-5 fs-3"
+        v-if="favoriteList.length === 0"
+      >
+        <p class="title">目前還沒有將任何甜品添加至我的最愛</p>
+        <button
+          class="btn btn-primary mr-2"
+          type="button"
+          @click="$router.push('/menu/all')"
+        >
+          瀏覽商品
+        </button>
       </div>
-      <div class="favoriteList">
-        <div class="cartItem" v-for="item in favoriteList" :key="item">
-          <figure class="imgBox">
-            <a
-              href="#"
-              :title="item.title"
-              @click.prevent="productDatil(item.id)"
+      <template v-else>
+        <table class="w-100 mt-2">
+          <thead class="cartListTitle">
+            <tr>
+              <td width="240">圖片</td>
+              <td>品名</td>
+              <td width="120">售價</td>
+              <td width="120">購買</td>
+              <td width="120">刪除</td>
+            </tr>
+          </thead>
+          <tbody class="favoriteList">
+            <tr
+              class="favoriteItem"
+              v-for="(item, index) in favoriteList"
+              :key="index"
             >
-              <img :src="item.imageUrl" :alt="item.title" class="img-fluid" />
-            </a>
-          </figure>
-          <a
-            href="#"
-            :title="item.title"
-            @click.prevent="productDatil(item.id)"
-            class="pdtName"
-          >
-            <p>{{ item.title }}</p>
-          </a>
-          <p class="pdtPrice">$ {{ item.price }}</p>
-          <a
-            href="#"
-            title="加入購物車"
-            class="pdtCart"
-            @click.prevent="toCart(item)"
-          >
-            <font-awesome-icon icon="fa-solid fa-cart-plus" />
-          </a>
-          <a
-            href="#"
-            title="刪除"
-            class="pdtDelete"
-            @click.prevent="addFavorite('remove', item)"
-          >
-            <font-awesome-icon icon="fa-solid fa-trash-can" />
-          </a>
-        </div>
-      </div>
+              <td class="imgBox">
+                <a
+                  href="#"
+                  :title="item.title"
+                  @click.prevent="productDatil(item.id)"
+                >
+                  <img
+                    :src="item.imageUrl"
+                    :alt="item.title"
+                    class="img-fluid"
+                  />
+                </a>
+              </td>
+              <td class="pdtName">
+                <a
+                  href="#"
+                  :title="item.title"
+                  @click.prevent="productDatil(item.id)"
+                  class="pdtName"
+                >
+                  {{ item.title }}
+                </a>
+              </td>
+              <td class="pdtPrice">$ {{ $filter.currency(item.price) }}</td>
+              <td class="pdtAddCart">
+                <a
+                  href="#"
+                  title="加入購物車"
+                  class="pdtCart"
+                  @click.prevent="toCart(item)"
+                >
+                  <font-awesome-icon icon="fa-solid fa-cart-plus" />
+                </a>
+              </td>
+              <td class="pdtDelete">
+                <a
+                  href="#"
+                  title="刪除"
+                  class="pdtDelete"
+                  @click.prevent="addFavorite('remove', item)"
+                >
+                  <font-awesome-icon icon="fa-solid fa-trash-can" />
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
     </div>
   </div>
   <Loading :isShow="isLoading"></Loading>

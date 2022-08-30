@@ -1,70 +1,77 @@
 .cartPage {
-  .container {
+  .cartInner {
     display: flex;
     align-items: self-start;
+    @include xl {
+      flex-direction: column;
+    }
   }
 }
 .cartListTitle {
-  width: 100%;
   text-align: center;
   background: $red;
-  display: flex;
-  align-items: center;
-  margin-top: 1rem;
-  p {
-    margin: 0;
-    padding: 0.5rem;
-    color: $white;
-    &:not(:last-child) {
-      border-right: 1px solid #fff;
-    }
-  }
-}
-.cartItem {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid $black;
-  &:last-child {
-    margin-bottom: 0;
-    border-bottom: 0;
-  }
-  &:first-child {
-    padding-top: 0.5rem
-  }
-  .pdtPrice,
-  .btnBox,
-  .pdtTotal {
-    width: 14%;
-  }
-  .pdtDelete {
-    width: 8%;
-  }
-  .btnBox {
-    justify-content: center;
-    button {
-      width: 35px;
-    }
-    input {
-      width: calc(100% - 70px);
-    }
-  }
-  .imgBox {
-    width: 20%;
-    margin-bottom: 0;
-  }
-  .pdtName {
-    width: 30%;
-  }
-  p {
-    margin-bottom: 0;
+  color: $white;
+  @include md {
+    display: none;
   }
 }
 .cartListBox {
   width: calc(100% - 400px);
+  @include xl {
+    width: 100%;
+  }
+  .cartItem {
+    text-align: center;
+    @include md {
+      display: grid;
+      grid-template-columns: 1fr 1fr 40px;
+      grid-template-rows: repeat(3, 1fr);
+      margin-bottom: 0.5rem;
+    }
+    td {
+      padding: 0.25rem;
+      @include md {
+        text-align: left;
+      }
+    }
+    .imgBox {
+      margin-bottom: 0;
+      @include md {
+        max-width: 250px;
+        grid-column-start: 1;
+        grid-column-end: span 1;
+        grid-row-start: 1;
+        grid-row-end: span 3;
+      }
+    }
+    .pdtTotal {
+      @include md {
+        display: none;
+      }
+    }
+    .btnBox {
+      @include md {
+        justify-content: start;
+      }
+    }
+    .pdtDelete {
+      @include md {
+        grid-column-start: 3;
+        grid-column-end: span 1;
+        grid-row-start: 1;
+        grid-row-end: span 4;
+        a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          background: $red;
+          color: $white;
+        }
+      }
+    }
+  }
 }
 .cartList {
   background: rgba(255, 255, 255, 0.5);
@@ -76,6 +83,13 @@
   width: 400px;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.5);
+  @include xl {
+    width: 100%;
+    position: relative;
+    top: 0;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
   .couponInput {
     width: calc(100% - 60px);
     border: 1px solid $red;
@@ -84,10 +98,16 @@
   .couponBtn {
     width: 60px;
   }
+  .cartTotalTitle {
+    text-align: center;
+    padding: 0.25rem;
+    background: $red;
+    color: $white;
+  }
   .cartTotalItem {
     display: flex;
     justify-content: space-between;
-    &.red{
+    &.red {
       color: $red;
     }
     .title {
@@ -120,7 +140,7 @@
     justify-content: space-between;
     text-align: left;
     border-color: #eee;
-    &.title{
+    &.title {
       background: $red;
       color: $white;
     }
@@ -168,9 +188,9 @@
   width: 500px;
   text-align: center;
   background: rgba(255, 255, 255, 0.5);
-  p{
+  p {
     text-align: left;
-    &.note{
+    &.note {
       color: $green;
     }
   }
@@ -198,6 +218,7 @@
     margin-bottom: 1rem;
     background: #fdf2e3;
     padding: 0.25rem 0.5rem;
+    flex-wrap: wrap;
   }
   input,
   textarea {
@@ -233,16 +254,66 @@
 
 .favoriteList {
   background: rgba(255, 255, 255, 0.5);
-  .cartItem {
+  .favoriteItem {
+    text-align: center;
+    td {
+      padding: 0.25rem;
+    }
+    @include md {
+      display: grid;
+      grid-template-columns: 1fr 180px 40px 40px;
+      grid-template-rows: repeat(2, 1fr);
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
     .pdtName {
-      width: 40%;
+      min-width: 240px;
     }
-    .pdtPrice {
-      width: 20%;
+    .pdtAddCart {
+      @include md {
+        padding: 0;
+        grid-column-start: 3;
+        grid-column-end: span 1;
+        grid-row-start: 1;
+        grid-row-end: span 2;
+        a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          background: $orange;
+          color: $white;
+        }
+      }
     }
-    .pdtCart,
     .pdtDelete {
-      width: 10%;
+      @include md {
+        padding: 0;
+        grid-column-start: 4;
+        grid-column-end: span 1;
+        grid-row-start: 1;
+        grid-row-end: span 2;
+        a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          background: $red;
+          color: $white;
+        }
+      }
+    }
+  }
+  .imgBox {
+    margin-bottom: 0;
+    @include md {
+      max-width: 250px;
+      grid-column-start: 1;
+      grid-column-end: span 1;
+      grid-row-start: 1;
+      grid-row-end: span 2;
     }
   }
 }

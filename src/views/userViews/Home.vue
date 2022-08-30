@@ -1,9 +1,4 @@
 <template>
-  <component :is="'style'">
-    .ix-banner{
-    background:url('https://storage.googleapis.com/vue-course-api.appspot.com/lili-api/1660198015057.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=Bw7Mzu8Qdpq9AERV6J0PwRq90gFQbtXo8rvAbcUBhtzbX50qEz%2B179XW9C1CbrPa%2FnyRxaq5EkFxIfE3CVvI1BQuisJgNGRugrjT2ynIWtUh3tHMMSRFgwMs85h0NPCU%2BdEoyRmE3GcV14zrCdJwrvWb059civuD3dXkBM43se06BIctLqOo5v1Ux9I40CedE1PCPHRii0a9BjCBR8zjDpIcVOh%2BKm%2FYQcosImH3lQ8R0C9QdGnPnukeIonERCclgDBAmhEzBZEg%2FMD%2Brl26PVKpbXYlszRrEjDTuLUd%2B%2FQko3wnnJj6e4xkoKroG3T%2F51FtLR%2FwPYVEiDkX4gDfTQ%3D%3D')
-    bottom; background-attachment: fixed; }
-  </component>
   <div class="ix-banner">
     <div class="ix-bannerTitleBox">
       <strong class="ix-bannerTitle">享受悠閒片刻的小確幸</strong>
@@ -20,10 +15,11 @@
     <div class="titleBox">
       <span class="titleEn">About Us</span>
       <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-        <span>關</span>於我們
+        <span>關</span>
+        於我們
       </h2>
     </div>
-    <div class="container">
+    <div class="container d-flex">
       <div class="ixAbout-textBox wow fadeInUp" data-wow-delay="500ms">
         <p>
           有點甜
@@ -60,7 +56,8 @@
       <div class="titleBox">
         <span class="titleEn">Selected Products</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>精</span>選商品
+          <span>精</span>
+          選商品
         </h2>
       </div>
       <div class="container">
@@ -99,13 +96,17 @@
                   v-if="product.origin_price !== product.price"
                 >
                   <div class="d-flex flex-column flex-start align-items-start">
-                    <p class="origin_price">$ {{ product.origin_price }}</p>
-                    <p class="price red">$ {{ product.price }}</p>
+                    <p class="origin_price">
+                      $ {{ $filter.currency(product.origin_price) }}
+                    </p>
+                    <p class="price red">
+                      $ {{ $filter.currency(product.price) }}
+                    </p>
                   </div>
                   <p class="unit">/ {{ product.unit }}</p>
                 </div>
                 <div class="priceBox mb-3" v-else>
-                  <p class="price">$ {{ product.price }}</p>
+                  <p class="price">$ {{ $filter.currency(product.price) }}</p>
                   <p class="unit">/ {{ product.unit }}</p>
                 </div>
                 <p>
@@ -158,55 +159,57 @@
                   <h3 class="title">
                     <a
                       href="#"
-                      title="南瓜粥"
+                      :title="product.title"
                       @click.prevent="$router.push(`/product/${product.id}`)"
                     >
                       {{ product.title }}
                     </a>
                   </h3>
-                  <div class="d-flex justify-content-between mt-auto">
+
+                  <div
+                    class="priceBox discount"
+                    v-if="product.origin_price !== product.price"
+                  >
                     <div
-                      class="priceBox discount"
-                      v-if="product.origin_price !== product.price"
+                      class="discountBox">
+                      <p class="origin_price">
+                        $ {{ $filter.currency(product.origin_price) }}
+                      </p>
+                      <p class="price red">
+                        $ {{ $filter.currency(product.price) }}
+                      </p>
+                    </div>
+                    <p class="unit">/ {{ product.unit }}</p>
+                  </div>
+                  <div class="priceBox mr-auto" v-else>
+                    <p class="price">$ {{ $filter.currency(product.price) }}</p>
+                    <p class="unit">/ {{ product.unit }}</p>
+                  </div>
+                  <div class="btnBox mt-auto">
+                    <button
+                      v-if="(favoriteArry.filter(i => i.id === product.id).length)"
+                      type="button"
+                      class="btn btn-outline-primary mr-2 border-end-0"
+                      @click="addFavorite('remove', product)"
                     >
-                      <div
-                        class="d-flex flex-column flex-start align-items-start"
-                      >
-                        <p class="origin_price">$ {{ product.origin_price }}</p>
-                        <p class="price red">$ {{ product.price }}</p>
-                      </div>
-                      <p class="unit">/ {{ product.unit }}</p>
-                    </div>
-                    <div class="priceBox mr-auto" v-else>
-                      <p class="price">$ {{ product.price }}</p>
-                      <p class="unit">/ {{ product.unit }}</p>
-                    </div>
-                    <div class="btnBox mt-auto">
-                      <button
-                        v-if="(favoriteArry.filter(i => i.id === product.id).length)"
-                        type="button"
-                        class="btn btn-outline-primary mr-2 border-end-0"
-                        @click="addFavorite('remove', product)"
-                      >
-                        <font-awesome-icon icon="fa-solid fa-heart" />
-                      </button>
-                      <button
-                        v-else
-                        type="button"
-                        class="btn btn-outline-primary mr-2 border-end-0"
-                        @click="addFavorite('add', product)"
-                      >
-                        <font-awesome-icon icon="fa-regular fa-heart" />
-                      </button>
-                      <button
-                        type="button"
-                        title="查看更多"
-                        class="btn btn-outline-primary"
-                        @click="addCart(product)"
-                      >
-                        加入購物車
-                      </button>
-                    </div>
+                      <font-awesome-icon icon="fa-solid fa-heart" />
+                    </button>
+                    <button
+                      v-else
+                      type="button"
+                      class="btn btn-outline-primary mr-2 border-end-0"
+                      @click="addFavorite('add', product)"
+                    >
+                      <font-awesome-icon icon="fa-regular fa-heart" />
+                    </button>
+                    <button
+                      type="button"
+                      title="查看更多"
+                      class="btn btn-outline-primary"
+                      @click="addCart(product)"
+                    >
+                      加入購物車
+                    </button>
                   </div>
                 </div>
               </div>

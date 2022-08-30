@@ -2,6 +2,9 @@
   padding: 142px 0 0 0;
   position: relative;
   min-height: 480px;
+  @include lg{
+    padding: 100px 0 0 0;
+  }
   &::before {
     content: '';
     position: absolute;

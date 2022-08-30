@@ -16,8 +16,11 @@ export default {
   },
   inject: ['emitter'],
   methods: {
-    getCart() {
-      this.isLoading = true;
+    getCart(isLoading) {
+      if (isLoading) {
+        this.isLoading = true;
+      }
+      console.log(isLoading);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       this.$http
         .get(api)
@@ -28,6 +31,9 @@ export default {
             this.total = res.data.data.total;
             if (res.data.data.carts[0].coupon) {
               this.coupon = res.data.data.carts[0].coupon;
+              this.couponCode = res.data.data.carts[0].coupon.code;
+              this.hasCoupon = true;
+              console.log(this.hasCoupon);
             }
             this.finalTotal = res.data.data.final_total + this.fare;
           } else {
@@ -41,8 +47,8 @@ export default {
         });
     },
   },
-  mounted() {
-    this.getCart();
+  created() {
+    this.getCart(true);
   },
   computed: {
     fare() {

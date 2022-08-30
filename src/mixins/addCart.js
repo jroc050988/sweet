@@ -1,6 +1,6 @@
 export default {
   methods: {
-    addCart(item, productPage) {
+    addCart(item, productPage, buyNow) {
       this.isLoading = true;
       console.log(item.num);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
@@ -17,11 +17,13 @@ export default {
         .then((res) => {
           console.log(res.data);
           if (res.data.success) {
-            console.log(res.data);
+            if (productPage === true && buyNow === true) {
+              this.$router.push('/cart');
+            }
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-cart-plus',
             });
           } else {
             console.error(res.data.message);

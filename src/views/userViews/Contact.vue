@@ -19,7 +19,7 @@
             <span class="tag">必填</span>
           </label>
           <Field class="form-select" as="select" name="主旨" rules="required" v-model="user.title">
-            <option>請選擇主旨</option>
+            <option value="">請選擇主旨</option>
             <option value="訂單刪除/修改">訂單刪除/修改</option>
             <option value="售後服務">售後服務</option>
             <option value="其他問題">其他問題</option>
@@ -108,7 +108,7 @@ export default {
   data() {
     return {
       user: {
-        title: '請選擇主旨',
+        title: '',
       },
     };
   },

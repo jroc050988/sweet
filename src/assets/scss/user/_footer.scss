@@ -1,8 +1,7 @@
 /*footer*/
 .footer.user {
   position: relative;
-  z-index: -1;
-  .footerWave{
+  .footerWave {
     background: #fbe4c7;
   }
   a {
@@ -11,10 +10,22 @@
   .container {
     display: flex;
     padding: 2rem;
+    @include md {
+      flex-direction: column;
+    }
   }
   .footer-infoBox {
     width: 50%;
+    @include lg {
+      width: 60%;
+    }
+    @include md {
+      width: 100%;
+    }
     .footer-titleBox {
+      @include md {
+        text-align: center;
+      }
       .footer-title {
         font-size: 2rem;
         font-weight: normal;
@@ -24,24 +35,37 @@
         font-family: $font-family-en;
       }
     }
-      .footer-social {
-        @include flexList;
-        margin-bottom: .5rem;
-        margin-left: -.5rem;
-        .socialLink {
-          display: block;
-          padding: 0.25rem 0.5rem;
-          font-size: 1.25rem;
-        }
+    .footer-social {
+      @include flexList;
+      margin-bottom: 0.5rem;
+      margin-left: -0.5rem;
+      @include md {
+        justify-content: center;
       }
+      .socialLink {
+        display: block;
+        padding: 0.25rem 0.5rem;
+        font-size: 1.25rem;
+      }
+    }
   }
   .footer-navBox {
     width: fit-content;
     margin-left: auto;
     display: flex;
     flex-direction: column;
+    @include md {
+      margin: 0 auto;
+    }
+    iframe {
+      @include md {
+        display: none;
+      }
+    }
     .footer-nav {
       @include flexList;
+      flex-wrap: wrap;
+      justify-content: center;
       .navLink {
         display: block;
         padding: 0.25rem 0.5rem;
