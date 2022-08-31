@@ -17,98 +17,96 @@
           瀏覽商品
         </button>
       </div>
-      <div class="cartInner">
+      <div class="cartInner" v-if="isHas">
         <div class="cartListBox">
-          <template v-if="isHas">
-            <div class="btnBox mt-2">
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="deleteAll"
+          <div class="btnBox mt-2">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="deleteAll"
+            >
+              清除全部
+            </button>
+          </div>
+          <table class="w-100 mt-2">
+            <thead class="cartListTitle">
+              <tr>
+                <td width="120">圖片</td>
+                <td>品名</td>
+                <td width="120">單價</td>
+                <td width="120">數量</td>
+                <td width="120">小計</td>
+                <td width="60">刪除</td>
+              </tr>
+            </thead>
+            <tbody class="cartList">
+              <tr
+                class="cartItem"
+                v-for="(item, index) in cartList"
+                :key="index"
               >
-                清除全部
-              </button>
-            </div>
-            <table class="w-100 mt-2">
-              <thead class="cartListTitle">
-                <tr>
-                  <td width="120">圖片</td>
-                  <td>品名</td>
-                  <td width="120">單價</td>
-                  <td width="120">數量</td>
-                  <td width="120">小計</td>
-                  <td width="60">刪除</td>
-                </tr>
-              </thead>
-              <tbody class="cartList">
-                <tr
-                  class="cartItem"
-                  v-for="(item, index) in cartList"
-                  :key="index"
-                >
-                  <td class="imgBox">
-                    <a
-                      href="#"
-                      :title="item.title"
-                      @click.prevent="productDatil(item.product.id)"
+                <td class="imgBox">
+                  <a
+                    href="#"
+                    :title="item.title"
+                    @click.prevent="productDatil(item.product.id)"
+                  >
+                    <img
+                      :src="item.product.imageUrl"
+                      :alt="item.product.title"
+                      class="img-fluid"
+                    />
+                  </a>
+                </td>
+                <td class="pdtName">
+                  <a
+                    href="#"
+                    :title="item.title"
+                    @click.prevent="productDatil(item.product.id)"
+                  >
+                    {{ item.product.title }}
+                  </a>
+                </td>
+                <td class="pdtPrice">
+                  $ {{ $filter.currency(item.product.price) }}
+                </td>
+                <td class="pdtbtn">
+                  <div class="btnBox">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary mr-2 border-end-0"
+                      :class="{ disabled: item.qty < 2 }"
+                      @click.prevent="numPlus(item, item.qty - 1)"
                     >
-                      <img
-                        :src="item.product.imageUrl"
-                        :alt="item.product.title"
-                        class="img-fluid"
-                      />
-                    </a>
-                  </td>
-                  <td class="pdtName">
-                    <a
-                      href="#"
-                      :title="item.title"
-                      @click.prevent="productDatil(item.product.id)"
+                      <font-awesome-icon icon="fa-solid fa-minus" />
+                    </button>
+                    <input
+                      type="number"
+                      class="numInput"
+                      min="1"
+                      v-model="item.qty"
+                      @change="numPlus(item, item.qty)"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary mr-2 border-start-0"
+                      @click.prevent="numPlus(item, item.qty + 1)"
                     >
-                      {{ item.product.title }}
-                    </a>
-                  </td>
-                  <td class="pdtPrice">
-                    $ {{ $filter.currency(item.product.price) }}
-                  </td>
-                  <td class="pdtbtn">
-                    <div class="btnBox">
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary mr-2 border-end-0"
-                        :class="{ disabled: item.qty < 2 }"
-                        @click.prevent="numPlus(item, item.qty - 1)"
-                      >
-                        <font-awesome-icon icon="fa-solid fa-minus" />
-                      </button>
-                      <input
-                        type="number"
-                        class="numInput"
-                        min="1"
-                        v-model="item.qty"
-                        @change="numPlus(item, item.qty)"
-                      />
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary mr-2 border-start-0"
-                        @click.prevent="numPlus(item, item.qty + 1)"
-                      >
-                        <font-awesome-icon icon="fa-solid fa-plus" />
-                      </button>
-                    </div>
-                  </td>
-                  <td class="pdtTotal">$ {{ $filter.currency(item.total) }}</td>
-                  <td class="pdtDelete">
-                    <a href="#" title="刪除" @click.prevent="deleteCart(item)">
-                      <font-awesome-icon icon="fa-solid fa-trash-can" />
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </template>
+                      <font-awesome-icon icon="fa-solid fa-plus" />
+                    </button>
+                  </div>
+                </td>
+                <td class="pdtTotal">$ {{ $filter.currency(item.total) }}</td>
+                <td class="pdtDelete">
+                  <a href="#" title="刪除" @click.prevent="deleteCart(item)">
+                    <font-awesome-icon icon="fa-solid fa-trash-can" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="cartTotalBox" v-if="isHas">
+        <div class="cartTotalBox">
           <div class="cartTotalInner">
             <div class="btnBox">
               <input
