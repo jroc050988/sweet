@@ -9,7 +9,7 @@
       </div>
       <div
         class="notFoundBox text-center mt-5 fs-3"
-        v-if="favoriteList && dwfavoriteList.length === 0"
+        v-if="favoriteList || dwfavoriteList.length === 0"
       >
         <p class="title">目前還沒有將任何甜品添加至我的最愛</p>
         <button
