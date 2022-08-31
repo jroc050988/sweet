@@ -12,6 +12,7 @@
         v-slot="{
           errors,
         }"
+        @submit="onSubmit"
       >
         <div class="mb-3 col-md-6">
           <label for="name" class="form-label">
@@ -37,6 +38,7 @@
             id="name"
             name="姓名"
             rules="required"
+            v-model="user.name"
             :class="{ 'is-invalid': errors['姓名'] }"
           ></Field>
           <ErrorMessage name="姓名" class="inputNote"></ErrorMessage>
@@ -51,6 +53,7 @@
             class="form-control"
             id="email"
             rules="required|email"
+            v-model="user.email"
             name="電子信箱"
             :class="{ 'is-invalid': errors['電子信箱'] }"
           ></Field>
@@ -66,6 +69,7 @@
             class="form-control"
             id="tel"
             name="手機號碼"
+            v-model="user.phone"
             :class="{ 'is-invalid': errors['手機號碼'] }"
             :rules="isPhone"
           ></Field>
@@ -75,7 +79,7 @@
           <label for="add" class="form-label">
             地址
           </label>
-          <Field type="email" class="form-control" id="add" name="地址"></Field>
+          <Field type="email" v-model="user.add" class="form-control" id="add" name="地址"></Field>
         </div>
         <div class="mb-3">
           <label for="massages" class="form-label">
@@ -86,6 +90,7 @@
             as="textarea"
             class="form-control"
             id="massages"
+            v-model="user.message"
             rows="6"
             name="內容"
             rules="required"
@@ -112,6 +117,7 @@ export default {
       },
     };
   },
+  inject: ['emitter'],
   mounted() {
     this.$emit('unit', 'contact');
   },
@@ -119,6 +125,16 @@ export default {
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
       return phoneNumber.test(value) ? true : '請輸入正確的手機號碼';
+    },
+    onSubmit() {
+      this.emitter.emit('pushMessage', {
+        style: 'success',
+        content: '信件發送成功',
+        icon: 'fa-solid fa-envelope',
+      });
+      this.user = {
+        title: '',
+      };
     },
   },
 };

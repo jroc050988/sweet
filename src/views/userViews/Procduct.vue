@@ -169,8 +169,7 @@
         <div class="titleBox">
           <span class="titleEn">Recommend</span>
           <h3 class="title wow fadeInUp" data-wow-delay="250ms">
-            <span>更</span>
-            多甜品
+            <span>更</span>多甜品
           </h3>
         </div>
         <swiper
@@ -180,6 +179,7 @@
           :spaceBetween="15"
           :modules="modules"
           class="susumeList"
+          :breakpoints="breakpoints"
         >
           <swiper-slide
             class="productItem"
@@ -192,7 +192,7 @@
               </router-link>
             </figure>
             <div class="textBox">
-              <h3 class="title">
+              <div class="title">
                 <a
                   href="#"
                   title="item.title"
@@ -200,7 +200,7 @@
                 >
                   {{ item.title }}
                 </a>
-              </h3>
+              </div>
 
               <div
                 class="priceBox discount"
@@ -281,6 +281,18 @@ export default {
       product: {},
       favoriteArry: [],
       susumeArry: [],
+      breakpoints: {
+        1: {
+          slidesPerView: 2,
+          centeredSlides: false,
+          spaceBetween: 10,
+        },
+        992: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+          centeredSlides: false,
+        },
+      },
     };
   },
   mixins: [addFavorite, addCart],

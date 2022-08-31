@@ -4,8 +4,7 @@
       <div class="titleBox">
         <span class="titleEn">Favorite</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>我</span>
-          的最愛
+          <span>我</span>的最愛
         </h2>
       </div>
       <div

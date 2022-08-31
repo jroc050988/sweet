@@ -4,8 +4,7 @@
       <div class="titleBox">
         <span class="titleEn">Order</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>訂</span>
-          單搜尋
+          <span>訂</span>單搜尋
         </h2>
       </div>
       <div class="orderSearch">

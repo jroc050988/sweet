@@ -4,8 +4,7 @@
       <div class="titleBox">
         <span class="titleEn">About Us</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>甜</span>
-          品目錄
+          <span>甜</span>品目錄
         </h2>
       </div>
       <ul class="nav nav-pills justify-content-center">

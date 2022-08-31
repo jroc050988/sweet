@@ -15,17 +15,12 @@
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
           @click="openNav"
         >
           <font-awesome-icon icon="fa-solid fa-bars" />
         </button>
         <div
-          class="collapse navbar-collapse ml-auto"
+          class="navbar-collapse ml-auto"
           id="navbarNav"
           :class="{ show: isOpen }"
         >

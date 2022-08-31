@@ -8,6 +8,7 @@
     :grabCursor="true"
     :slidesPerView="5"
     :spaceBetween="15"
+    :breakpoints="breakpoints"
     :modules="modules"
     class="ixAbout-slider"
   >
@@ -32,6 +33,18 @@ export default {
   data() {
     return {
       productList: [],
+      breakpoints: {
+        1: {
+          slidesPerView: 2,
+          centeredSlides: false,
+          spaceBetween: 10,
+        },
+        992: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+          centeredSlides: false,
+        },
+      },
     };
   },
   components: {

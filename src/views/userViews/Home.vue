@@ -15,8 +15,7 @@
     <div class="titleBox">
       <span class="titleEn">About Us</span>
       <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-        <span>關</span>
-        於我們
+        <span>關</span>於我們
       </h2>
     </div>
     <div class="container d-flex">
@@ -56,8 +55,7 @@
       <div class="titleBox">
         <span class="titleEn">Selected Products</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>精</span>
-          選商品
+          <span>精</span>選商品
         </h2>
       </div>
       <div class="container">

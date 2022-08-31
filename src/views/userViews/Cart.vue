@@ -4,8 +4,7 @@
       <div class="titleBox">
         <span class="titleEn">Cart</span>
         <h2 class="title wow fadeInUp" data-wow-delay="250ms">
-          <span>購</span>
-          物清單
+          <span>購</span>物清單
         </h2>
       </div>
       <div class="notFoundBox text-center mt-5 fs-3" v-if="!isHas">

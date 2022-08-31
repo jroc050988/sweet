@@ -99,6 +99,16 @@
       font-size: 1.25rem;
       margin: 0 auto 0 0;
     }
+    .title{
+      font-size: 1.5rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      @include sm {
+        font-size: 1.25rem;
+      }
+    }
   }
 }
 .btnGroup {
