@@ -15,29 +15,25 @@ export default {
     Loading,
   },
   inject: ['emitter'],
+  emits: ['unit'],
   methods: {
     getCart(isLoading) {
       if (isLoading) {
         this.isLoading = true;
       }
-      console.log(isLoading);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       this.$http
         .get(api)
         .then((res) => {
-          console.log(res);
-          if (res.data.success) {
+          if (res.data.success && res.data.data.carts.length !== 0) {
             this.cartList = res.data.data.carts;
             this.total = res.data.data.total;
-            if (res.data.data.carts[0].coupon) {
+            if (!res.data.data.carts || res.data.data.carts[0].coupon) {
               this.coupon = res.data.data.carts[0].coupon;
               this.couponCode = res.data.data.carts[0].coupon.code;
               this.hasCoupon = true;
-              console.log(this.hasCoupon);
             }
             this.finalTotal = res.data.data.final_total + this.fare;
-          } else {
-            console.error('列表取得失敗');
           }
           this.isLoading = false;
         })

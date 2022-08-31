@@ -212,6 +212,7 @@
   margin: 0 auto;
   padding: 2rem 0;
   .orderInfoList {
+    grid-gap: .5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

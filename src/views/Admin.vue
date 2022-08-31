@@ -18,7 +18,6 @@ export default {
   inject: ['emitter'],
   methods: {
     checkAdmin() {
-      console.log('checkAdmin');
       const hexToken = document.cookie.replace(
         /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
         '$1',
@@ -42,7 +41,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     },
   },

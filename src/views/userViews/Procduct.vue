@@ -325,7 +325,7 @@ export default {
           this.isLoading = false;
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.isLoading = false;
         });
       if (localStorage.getItem('favorite')) {
@@ -342,9 +342,7 @@ export default {
         .get(api)
         .then((res) => {
           if (res.data.success) {
-            console.log(res.data.products);
             const arry = Object.values(res.data.products);
-            console.log(this.product);
             arry.forEach((i) => {
               if (
                 i.category === this.product.category
@@ -353,7 +351,6 @@ export default {
                 this.susumeArry.push(i);
               }
             });
-            console.log(this.susumeArry);
           } else {
             console.error('產品列表取得失敗');
           }

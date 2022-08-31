@@ -118,6 +118,7 @@ export default {
     };
   },
   inject: ['emitter'],
+  emits: ['unit'],
   mounted() {
     this.$emit('unit', 'contact');
   },

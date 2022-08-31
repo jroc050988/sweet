@@ -158,23 +158,23 @@ export default {
           if (res.data.success) {
             this.productList = res.data.products;
             this.page = res.data.pagination;
-            console.log(this.productList, 'productList');
           } else {
             console.error('列表取得失敗');
           }
           this.isLoading = false;
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.isLoading = false;
         });
     },
     openModal(isNew, item) {
       this.tempProduct = {};
       this.$refs.modal.showModal();
-      this.tempProduct = JSON.parse(JSON.stringify(item));
+      if (item) {
+        this.tempProduct = JSON.parse(JSON.stringify(item));
+      }
       this.isNew = isNew;
-      console.log(this.productList, 'productList');
     },
     openDelModal(item) {
       this.tempProduct = {};
@@ -191,7 +191,7 @@ export default {
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-trash-can',
             });
             this.getProducts();
           } else {
@@ -227,7 +227,7 @@ export default {
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-circle-check',
             });
             this.getProducts();
           } else {
@@ -256,7 +256,6 @@ export default {
         .then((res) => {
           if (res.data.success) {
             if (this.searchBoth) {
-              console.log('both');
               this.productList = Object.values(this.allProducts)
                 .filter((item) => item.title.match(this.searchInput)
                   && item.category.match(this.selectInput));

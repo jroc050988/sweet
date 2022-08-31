@@ -29,6 +29,7 @@
       <div class="orderInfo" v-if="this.orderInfo !== null">
         <div class="orderInfoList">
           <div>訂單編號: {{ orderInfo.id }}</div>
+          <div>{{ orderInfo.is_paid ? '已付款':'尚未付款' }}</div>
           <div>訂單日期: {{ $filter.getDate(orderInfo.create_at * 1000) }}</div>
         </div>
         <div class="cartTotalBox">
@@ -160,6 +161,7 @@ export default {
     };
   },
   inject: ['emitter'],
+  emits: ['unit'],
   components: {
     Loading,
   },

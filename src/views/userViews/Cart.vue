@@ -226,7 +226,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.isLoading = false;
         });
     },
@@ -254,7 +254,7 @@ export default {
           this.isLoading = false;
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.isLoading = false;
         });
     },
@@ -266,7 +266,6 @@ export default {
       this.$http
         .delete(api)
         .then((res) => {
-          console.log(res.data);
           if (res.data.success) {
             this.cartList = [];
             this.emitter.emit('pushMessage', {
@@ -323,7 +322,7 @@ export default {
             this.isLoading = false;
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
             this.isLoading = false;
           });
       }

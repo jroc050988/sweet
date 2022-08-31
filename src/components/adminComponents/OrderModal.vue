@@ -2,7 +2,13 @@
   <!-- Modal -->
   <div class="modal fade orderModal" tabindex="-1" ref="modal">
     <div class="modal-dialog modal-xl" role="document">
-      <form class="modal-content border-0" @submit="onSubmit">
+      <Form
+        class="modal-content border-0"
+        v-slot="{
+          errors,
+        }"
+        @submit="onSubmit"
+      >
         <div class="modal-header">
           <p class="modalTitle">
             <span>訂單編號: {{ data.id }}</span>
@@ -22,48 +28,70 @@
                   <font-awesome-icon icon="fa-solid fa-stroopwafel" />
                   訂購人姓名
                 </label>
-                <input
+                <Field
                   type="text"
                   class="form-control"
                   id="name"
                   v-model="order.user.name"
-                />
+                  rules="required"
+                  name="訂購人姓名"
+                  :class="{ 'is-invalid': errors['訂購人姓名'] }"
+                ></Field>
+                <ErrorMessage
+                  name="訂購人姓名"
+                  class="inputNote"
+                ></ErrorMessage>
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label inputTitle">
                   <font-awesome-icon icon="fa-solid fa-stroopwafel" />
                   聯絡電子信箱
                 </label>
-                <input
+                <Field
                   type="email"
                   class="form-control"
                   id="email"
                   v-model="order.user.email"
-                />
+                  rules="required|email"
+                  name="聯絡電子信箱"
+                  :class="{ 'is-invalid': errors['聯絡電子信箱'] }"
+                ></Field>
+                <ErrorMessage
+                  name="聯絡電子信箱"
+                  class="inputNote"
+                ></ErrorMessage>
               </div>
               <div class="mb-3">
                 <label for="tel" class="form-label inputTitle">
                   <font-awesome-icon icon="fa-solid fa-stroopwafel" />
-                  聯絡電話
+                  手機號碼
                 </label>
-                <input
+                <Field
                   type="text"
                   class="form-control"
                   id="tel"
                   v-model="order.user.tel"
-                />
+                  name="手機號碼"
+                  :class="{ 'is-invalid': errors['手機號碼'] }"
+                  :rules="isPhone"
+                ></Field>
+                <ErrorMessage name="手機號碼" class="inputNote"></ErrorMessage>
               </div>
               <div class="mb-3">
-                <label for="add" class="form-label inputTitle">
-                  <font-awesome-icon icon="fa-solid fa-stroopwafel" />
+                <label for="add" class="form-label">
                   收件地址
+                  <span class="tag">必填</span>
                 </label>
-                <input
+                <Field
                   type="text"
                   class="form-control"
                   id="add"
+                  name="收件地址"
+                  :class="{ 'is-invalid': errors['收件地址'] }"
                   v-model="order.user.address"
-                />
+                  rules="required"
+                ></Field>
+                <ErrorMessage name="收件地址" class="inputNote"></ErrorMessage>
               </div>
             </div>
             <div class="col-sm-8">
@@ -153,7 +181,7 @@
             確定
           </button>
         </div>
-      </form>
+      </Form>
     </div>
   </div>
 </template>
@@ -234,8 +262,10 @@ export default {
     },
     onSubmit() {
       this.$emit('updata', this.order);
-      console.log(this.order);
-      console.log(this.products);
+    },
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/;
+      return phoneNumber.test(value) ? true : '請輸入正確的手機號碼';
     },
   },
 };

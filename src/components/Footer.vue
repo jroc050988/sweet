@@ -135,7 +135,7 @@
             </router-link>
           </li>
         </ul>
-        <iframe
+        <!-- <iframe
           class="mx-auto my-1"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7625218782155!2d121.54275061537876!3d25.042132044118578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abda7a832e91%3A0x61021c13123a3b47!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5b-g5a2d5p2x6Lev5Zub5q61NDXomZ8!5e0!3m2!1szh-TW!2stw!4v1659873421418!5m2!1szh-TW!2stw"
           width="80%"
@@ -144,7 +144,7 @@
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+        ></iframe> -->
         <div class="copyright">
           <small>
             Copyright © 2022 有點甜 All Rights Reserved.

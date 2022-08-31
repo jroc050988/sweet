@@ -2,7 +2,6 @@ export default {
   methods: {
     addCart(item, productPage, buyNow) {
       this.isLoading = true;
-      console.log(item.num);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       const addCart = {
         product_id: item.id,
@@ -15,7 +14,6 @@ export default {
       this.$http
         .post(api, { data: addCart })
         .then((res) => {
-          console.log(res.data);
           if (res.data.success) {
             if (productPage === true && buyNow === true) {
               this.$router.push('/cart');

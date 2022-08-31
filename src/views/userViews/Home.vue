@@ -233,6 +233,7 @@ export default {
     };
   },
   inject: ['emitter'],
+  emits: ['unit'],
   components: {
     Slider,
   },
@@ -244,7 +245,6 @@ export default {
         .get(api)
         .then((res) => {
           if (res.data.success) {
-            console.log(res.data);
             const arry = Object.values(res.data.products);
             // 隨機10筆進行輪播;總數未滿10筆全部輪播
             if (arry.length > 10) {

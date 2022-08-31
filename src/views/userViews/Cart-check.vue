@@ -165,7 +165,7 @@
             上一步
           </button>
           <button class="btn btn-primary mr-2">
-            去結帳
+            下訂單
           </button>
         </div>
       </div>
@@ -190,13 +190,11 @@ export default {
   },
   methods: {
     createOrder() {
-      console.log('createOrder');
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
       this.$http
         .post(api, { data: this.orderData })
         .then((res) => {
-          console.log(res.data);
           if (res.data.success) {
             this.isLoading = false;
             sessionStorage.setItem('orderId', res.data.orderId);
@@ -205,7 +203,7 @@ export default {
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-circle-check',
             });
           } else {
             this.isLoading = false;

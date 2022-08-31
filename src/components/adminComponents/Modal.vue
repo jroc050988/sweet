@@ -350,13 +350,13 @@ export default {
             this.emitter.emit('pushMessage', {
               style: 'fail',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-triangle-exclamation',
             });
           }
           this.isLoading = false;
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.isLoading = false;
         });
     },

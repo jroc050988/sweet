@@ -103,6 +103,7 @@ export default {
     };
   },
   inject: ['emitter'],
+  emits: ['unit'],
   components: {
     Loading,
   },
@@ -128,7 +129,6 @@ export default {
   },
   mounted() {
     this.getProducts();
-    console.log(this.favoriteList);
     this.$emit('unit', 'favorite');
   },
 };

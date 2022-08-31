@@ -142,7 +142,6 @@ export default {
     },
     changeUnit(data) {
       this.CurrentUnit = data;
-      console.log(data);
     },
   },
   watch: {

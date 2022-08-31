@@ -109,7 +109,6 @@ export default {
       this.isNew = isNew;
       if (!isNew) {
         this.tempcoupon = item;
-        console.log(this.tempcoupon);
       } else {
         this.tempcoupon = {};
       }
@@ -122,12 +121,11 @@ export default {
         .get(api)
         .then((res) => {
           if (res.data.success) {
-            console.log(res.data);
             this.couponList = res.data.coupons;
             this.page = res.data.pagination;
             this.isLoading = false;
           } else {
-            console.log('列表取得失敗');
+            console.error('列表取得失敗');
           }
         })
         .catch((err) => {
@@ -149,7 +147,7 @@ export default {
               this.emitter.emit('pushMessage', {
                 style: 'success',
                 content: res.data.message,
-                icon: '',
+                icon: 'fa-solid fa-circle-check',
               });
             } else {
               this.$refs.couponsModal.hideModal();
@@ -180,7 +178,7 @@ export default {
               this.emitter.emit('pushMessage', {
                 style: 'success',
                 content: res.data.message,
-                icon: '',
+                icon: 'fa-solid fa-circle-check',
               });
             } else {
               this.$refs.couponsModal.hideModal();
@@ -212,7 +210,7 @@ export default {
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-circle-check',
             });
           } else {
             this.$refs.delModal.hideModal();

@@ -1,7 +1,6 @@
 export default {
   methods: {
     addFavorite(mehtod, item) {
-      console.log('add');
       let dataArry = [];
       let data = '';
       if (localStorage.getItem('favorite')) {

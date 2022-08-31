@@ -108,12 +108,10 @@ export default {
   methods: {
     openDetail(item) {
       this.orderDetail = JSON.parse(JSON.stringify(item));
-      console.log(this.orderDetail);
       this.$refs.detail.showModal();
     },
     openDelModal(isAll, item) {
       this.isAll = isAll;
-      console.log(isAll);
       if (!isAll) {
         this.orderDetail = item;
       }
@@ -135,18 +133,17 @@ export default {
               this.emitter.emit('pushMessage', {
                 style: 'success',
                 content: res.data.message,
-                icon: '',
+                icon: 'fa-solid fa-circle-check',
               });
             } else {
               this.emitter.emit('pushMessage', {
                 style: 'fail',
                 content: res.data.message,
-                icon: '',
+                icon: 'fa-solid fa-triangle-exclamation',
               });
               this.$refs.delModal.hideModal();
               this.isLoading = false;
             }
-            console.log(res);
           })
           .catch((err) => {
             console.error(err);
@@ -161,13 +158,11 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.orderList = res.data.orders;
-            console.log(res.data);
             this.isLoading = false;
           } else {
-            console.log('列表取得失敗');
+            console.error('列表取得失敗');
             this.isLoading = false;
           }
-          console.log(res);
         })
         .catch((err) => {
           console.error(err);
@@ -179,12 +174,11 @@ export default {
       this.$http
         .put(api, { data: item })
         .then((res) => {
-          console.log(res);
           if (res.data.success) {
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-circle-check',
             });
             this.$refs.detail.hideModal();
             this.getOrder();
@@ -193,7 +187,7 @@ export default {
             this.emitter.emit('pushMessage', {
               style: 'fail',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-triangle-exclamation',
             });
             this.isLoading = false;
           }
@@ -215,18 +209,17 @@ export default {
             this.emitter.emit('pushMessage', {
               style: 'success',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-circle-check',
             });
           } else {
             this.emitter.emit('pushMessage', {
               style: 'fail',
               content: res.data.message,
-              icon: '',
+              icon: 'fa-solid fa-triangle-exclamation',
             });
             this.$refs.delModal.hideModal();
             this.isLoading = false;
           }
-          console.log(res);
         })
         .catch((err) => {
           console.error(err);
